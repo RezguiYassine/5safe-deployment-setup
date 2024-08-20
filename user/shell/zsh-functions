@@ -1,0 +1,46 @@
+# Function to source files if they exist
+function zsh_add_file() {
+    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
+
+# function pp(){
+
+#  pacman -Slq | fzf -m --preview 'cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")' | xargs -ro sudo pacman -S
+# }
+
+# function yy(){
+#   yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk "{print \$2}")' | xargs -ro  yay -S
+
+# }
+function openpdf() {
+    local file="$1"
+    atril "$file" > /dev/null 2>&1 & disown
+}
+
+function openpdfs() {
+    while IFS= read -r file; do
+        openpdf "$file" 2>&1 & disown
+    done
+}
+function ipdf() {
+    local search_dir="${1:-$HOME}"
+    fd -L -H -e pdf . "$search_dir" \
+    | fzf -m -e --preview "pdftotext -f 1 -l 1 {} - |bat --color=always --style=numbers --line-range=:100 --theme=gruvbox-dark" \
+    | awk 'BEGIN {FS="\t"; OFS="\t"}; {print $1}' \
+    | openpdfs
+}
+function tree() {
+  depth=1
+  dir="."
+
+  while [[ $# -gt 0 ]]; do
+    if [[ "$1" =~ ^[0-9]+$ ]]; then
+      depth="$1"
+    else
+      dir="$1"
+    fi
+    shift
+  done
+
+  eza -T --icons -L "$depth" "$dir"
+}
