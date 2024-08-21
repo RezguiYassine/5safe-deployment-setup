@@ -31,10 +31,8 @@
         modules-left = [
           "group/power"
           "group/battery"
-          "group/backlight"
           "group/cpu"
           "group/memory"
-          "group/pulseaudio"
           "keyboard-state"
         ];
         modules-center = [
@@ -42,6 +40,8 @@
           "hyprland/workspaces"
         ];
         modules-right = [
+          "group/backlight"
+          "group/pulseaudio"
           "group/time"
           "idle_inhibitor"
           "tray"
