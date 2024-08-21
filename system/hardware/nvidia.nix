@@ -1,7 +1,7 @@
-{config, lib, ...}:
+{ config, lib, ... }:
 
 {
-  services.xserver.videoDrivers = ["nvidia"]; # unfree
+  services.xserver.videoDrivers = [ "nvidia" ]; # unfree
   hardware = {
     nvidia = {
       # Modesetting is required.
@@ -15,7 +15,7 @@
 
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-      powerManagement.finegrained =false;
+      powerManagement.finegrained = false;
 
       # Use the NVidia open source kernel module (not to be confused with the
       # independent third-party "nouveau" open source driver).
@@ -34,16 +34,16 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       prime = {
         offload = {
-			    enable = false;
-			    enableOffloadCmd = false;
-		  };
-      sync.enable = true;
-		  # Make sure to use the correct Bus ID values for your system!
-		  intelBusId = "PCI:0:2:0";
-		  nvidiaBusId = "PCI:1:0:0";
-      # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
-	  };
-   };
+          enable = false;
+          enableOffloadCmd = false;
+          sync.enable = true;
+        };
+        # Make sure to use the correct Bus ID values for your system!
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+        # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
+      };
+    };
   };
   specialisation = {
     on-the-go.configuration = {
