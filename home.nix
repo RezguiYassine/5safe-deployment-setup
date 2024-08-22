@@ -53,7 +53,7 @@
     mate.atril
     pasystray
 
-    # obsidian
+    obsidian
     vdhcoapp
     jetbrains.pycharm-professional
 
