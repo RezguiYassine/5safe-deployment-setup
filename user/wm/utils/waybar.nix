@@ -33,6 +33,8 @@
           "group/battery"
           "group/cpu"
           "group/memory"
+          "group/backlight"
+          "group/pulseaudio"
           "keyboard-state"
         ];
         modules-center = [
@@ -40,8 +42,6 @@
           "hyprland/workspaces"
         ];
         modules-right = [
-          "group/backlight"
-          "group/pulseaudio"
           "group/time"
           "idle_inhibitor"
           "tray"
@@ -148,7 +148,7 @@
         };
         tray = {
           #"icon-size" = 21;
-          "spacing" = 10;
+          "spacing" = 11;
         };
         "clock#time" = {
           "interval" = 1;
@@ -304,9 +304,9 @@
             "portable" = "";
             "car" = "";
             "default" = [
-              ""
-              ""
-              ""
+              " "
+              " "
+              " "
             ];
           };
           "on-click" = "hyprctl dispatch togglespecialworkspace scratch_pavucontrol; if hyprctl clients | grep pavucontrol; then echo 'scratch_ranger respawn not needed'; else pavucontrol; fi";
@@ -473,7 +473,7 @@
         ;
               }
 
-              battery,
+              #battery,
               #cpu,
               #memory,
               #disk,
@@ -610,7 +610,7 @@
         ;
               }
 
-              memory {
+              #memory {
                   color: #''
       + config.lib.stylix.colors.base0E
       + ''
