@@ -6,7 +6,7 @@
   pkgs-nwg-dock-hyprland,
   ...
 }:
-let 
+let
   pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
@@ -37,8 +37,8 @@ in
       keepmenu
       pinentry-gnome3
       wev
-      grim
-      slurp
+      hyprshot
+      python311Packages.pyqt6
       libsForQt5.qt5.qtwayland
       qt6.qtwayland
       xdg-utils
