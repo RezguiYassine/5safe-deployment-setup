@@ -2,6 +2,7 @@
   description = "User flake";
 
   inputs = {
+    ormolu.url = "github:tweag/ormolu";
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +30,7 @@
       rev = "58e1a4a4997728be886a46d031514b3f09763c5d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprgrass.url = "github:horriblename/hyprgrass/0bb3b822053c813ab6f695c9194089ccb5186cc3";
+    hyprgrass.url = "github:horriblename/hyprgrass/0bb3b822053c813ab6f695c9194089ccb5186cc3";  
     hyprgrass.inputs.hyprland.follows = "hyprland";
     nwg-dock-hyprland-pin-nixpkgs.url = "nixpkgs/2098d845d76f8a21ae4fe12ed7c7df49098d3f15";
   };
@@ -48,6 +49,7 @@
       pkgs-nwg-dock-hyprland = import inputs.nwg-dock-hyprland-pin-nixpkgs {
         system = systemSettings.system;
       };
+      pkgs-haskell-ormolu = inputs.ormolu.packages.${system}.default;
       systemSettings = {
         system = "x86_64-linux";
         hostName = "snowfire";
@@ -64,7 +66,7 @@
         username = "falcon";
         name = "Falcon";
         dotfilesDir = "~/.dotfiles";
-        theme = "horizon-dark";
+        theme = "ayu-dark";
         wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
         wmType = if (wm == "hyprland") then "wayland" else "x11";
         browser = "firefox"; # Default browser; must select one from ./user/app/browser/
@@ -92,6 +94,7 @@
             inherit userSettings;
             inherit inputs;
             inherit pkgs-nwg-dock-hyprland;
+            inherit pkgs-haskell-ormolu;
           };
         };
       };
