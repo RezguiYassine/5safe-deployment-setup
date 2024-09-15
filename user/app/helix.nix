@@ -82,6 +82,21 @@
         "plugins.pyls_mypy.enabled" = true;
         "plugins.pyls_mypy.live_mode" = true;
       };
+
+      language-server.deno-lsp = {
+        command = "deno";
+        args = [ "lsp" ];
+      };
+      language-server.deno-lsp.config.deno = {
+        enable = true;
+      };
+      grammar = [
+        {
+          name = "haskell";
+          source.git = "https://github.com/tree-sitter/tree-sitter-haskell";
+          source.rev = "e29c59236283198d93740a796c50d1394bccbef5";
+        }
+      ];
       language = with pkgs; [
         {
           name = "nix";
@@ -89,11 +104,41 @@
           formatter.command = "${nixfmt-rfc-style}/bin/nixfmt";
         }
         {
+          name = "haskell";
+          scope = "source.haskell";
+          injection-regex = "hs|haskell";
+          file-types = [
+            "hs"
+            "hs-boot"
+            "hsc"
+          ];
+          roots = [
+            "Setup.hs"
+            "stack.yaml"
+            "cabal.project"
+          ];
+          comment-token = "--";
+          block-comment-tokens.start = "{-";
+          block-comment-tokens.end = "-}";
+          language-servers = [ "haskell-language-server" ];
+          indent.tab-width = 2;
+          indent.unit = "  ";
+
+        }
+        {
           name = "typescript";
           auto-format = true;
-          formatter.command = "${nodePackages.prettier}/bin/prettier";
-          formatter.args = [ "--write" ];
-          language-servers = [ "typescript-language-server" ];
+          language-id = "typescript";
+          scope = "source.ts";
+          injection-regex = "^(ts|typescript)$";
+          file-types = [ "ts" ];
+          shebangs = [ "deno" ];
+          roots = [
+            "deno.json"
+            "deno.jsonc"
+            "package.json"
+          ];
+          language-servers = [ "deno-lsp" ];
         }
         {
           name = "python";
