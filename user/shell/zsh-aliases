@@ -47,7 +47,7 @@ alias py='python'
 alias p='python'
 alias ls='eza --icons -l -T -L=1'
 alias cat='bat'
-alias htop="btm"
+# alias htop="btm"
 alias fd="fd -Lu"
 alias w3m="w3m -no-cookie -v"
 alias neofetch="disfetch"
