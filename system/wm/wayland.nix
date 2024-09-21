@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [ ./pipewire.nix
@@ -35,7 +35,7 @@
       wayland.enable = true;
       enableHidpi = true;
       theme = "chili";
-      package = pkgs.sddm;
+      package = lib.mkForce pkgs.sddm;
     };
   };
 }

@@ -12,6 +12,7 @@
   imports = [
     ./user/shell/sh.nix
     ./user/lang/haskell.nix
+    # ./user/lang/ts.nix
     ./user/tmux/tmux.nix
     ./user/style/stylix.nix
     ./user/terminal/kitty.nix
@@ -19,9 +20,10 @@
     ./user/app/helix.nix
     ./user/app/git/git.nix
     ./user/lang/python/python.nix
-    # ./user/app/vscodium.nix
+    ./user/app/vscodium.nix
     ./user/app/ranger/ranger.nix
     ./user/wm/${userSettings.wm}/${userSettings.wm}.nix
+    ./user/wm/kde/kde.nix
   ];
   xdg.enable = true;
   home.sessionVariables = {
@@ -37,6 +39,7 @@
         "DroidSansMono"
       ];
     })
+    xwayland
     tor-browser-bundle-bin
     emacs
     zsh-powerlevel10k
@@ -52,10 +55,20 @@
     vlc
     mate.atril
     pasystray
+    # fluffychat
+    tigervnc
+    vivaldi
 
+    remmina
     obsidian
     vdhcoapp
     jetbrains.pycharm-professional
+    jetbrains.webstorm
+    qbittorrent
+    gparted
+    deno
+    nodePackages.pnpm
+    bun
 
   ];
   services.pasystray.enable = false;
