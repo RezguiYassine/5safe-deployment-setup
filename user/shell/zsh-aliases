@@ -55,3 +55,4 @@ alias fetch="disfetch"
 alias gitfetch="onefetch"
 
 alias lazypodman='DOCKER_HOST=unix:///run/podman/podman.sock lazydocker'
+alias lzg='lazygit'
