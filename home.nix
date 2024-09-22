@@ -23,9 +23,12 @@
     ./user/app/vscodium.nix
     ./user/app/ranger/ranger.nix
     ./user/wm/${userSettings.wm}/${userSettings.wm}.nix
-    ./user/wm/kde/kde.nix
   ];
   xdg.enable = true;
+  xsession = {
+    enable = true;
+    initExtra = "xset r rate 200 40";
+  };
   home.sessionVariables = {
     EDITOR = userSettings.editor;
     TERM = userSettings.term;
@@ -58,6 +61,7 @@
     # fluffychat
     tigervnc
     vivaldi
+    signal-desktop
 
     remmina
     obsidian
