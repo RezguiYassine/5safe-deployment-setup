@@ -34,7 +34,7 @@
       enable = true;
       wayland.enable = true;
       enableHidpi = true;
-      theme = "chili";
+      # theme = "chili";
       package = lib.mkForce pkgs.sddm;
     };
   };
