@@ -1,3 +1,4 @@
+#! /run/current-system/sw/bin/sh
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
