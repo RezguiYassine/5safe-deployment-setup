@@ -23,6 +23,7 @@
     ./user/app/vscodium.nix
     ./user/app/ranger/ranger.nix
     ./user/wm/${userSettings.wm}/${userSettings.wm}.nix
+    ./user/wm/xmonad/xmonad.nix
   ];
   xdg.enable = true;
   xsession = {
