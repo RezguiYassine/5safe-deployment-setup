@@ -59,8 +59,8 @@
       pyinotify
       pyopenssl
       pyparsing
-      pyqt5
-      pyqt5_sip
+      pyqt6
+      pyqt6_sip
       pyscard
       pythondialog
       pyxdg

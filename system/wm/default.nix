@@ -1,11 +1,12 @@
-{userSettings, ...}:
+{ userSettings, ... }:
 
 {
-    imports = [
-    
-    ./xfce.nix 
-    ./${userSettings.wm}".nix"
+  imports = [
+
+    ./xfce.nix
+    ./${userSettings.wm}.nix
     ./xmonad.nix
-  
+    ./kde.nix
+    ./x11.nix
   ];
 }

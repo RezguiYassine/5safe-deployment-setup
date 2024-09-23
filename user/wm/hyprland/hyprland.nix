@@ -124,6 +124,9 @@ in
       pluginsPackages.hyprexpo
       inputs.hyprgrass.packages.${pkgs.system}.default
     ];
+    # extraConfig = ''
+    #   source=~/.config/hypr/monitors.conf
+    # '';
 
     settings = {
       env = [
@@ -134,7 +137,7 @@ in
         "WLR_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1"
         "GDK_BACKEND,wayland,x11,*"
         "QT_QPA_PLATFORM,wayland;xcb"
-        "QT_QPA_PLATFORMTHEME,qt5ct"
+        "QT_QPA_PLATFORMTHEME,qt6ct"
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "CLUTTER_BACKEND,wayland"
@@ -171,13 +174,15 @@ in
       xwayland = {
         force_zero_scaling = true;
       };
-      monitor = [
-        "HDMI-A-1,1920x1080@60.0,2560x360,1.0"
-        "eDP-2,1920x1080@165.003006,0x0,1.0"
-        # "eDP-2,2560x1440@165.003006,0x0,1.0"
-        "eDP-1,2048x1152@165.003006,0x0,1.0"
-
-      ];
+      source = [ "${config.home.homeDirectory}/.config/hypr/monitors.conf" ];
+      # monitor = [
+      #   "eDP-2,1920x1080@165.003006,0x0,1.0"
+      #   # "eDP-2,2560x1440@165.003006,0x0,1.0"
+      #   # "HDMI-A-1,3840x2160@120,0x0,1.0,bitdepth, 10"
+      #   # "HDMI-A-1,3840x2160@120,0x0,1.0"
+      #   # "eDP-1,2048x1152@165,3840x0,1.0"
+      #   "eDP-1,2048x1152@165.003006,2160x0,1.0"
+      # ];
       exec-once = [
         "dbus-update-activation-environment --systemd DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_SESSION_DESKTOP=Hyprland XDG_CURRENT_DESKTOP=Hyprland XDG_SESSION_TYPE=wayland"
         "hyprctl setcursor ${config.gtk.cursorTheme.name} ${cursorSizeStr}"
@@ -241,23 +246,30 @@ in
 
         "float,class:^(pokefinder)$"
 
-        "opacity 0.80,title:ORUI"
+        "opacity 0.80,title:orui"
 
         "opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1"
-        "opacity 0.85,class:^(Element)$"
+        "opacity 0.85,class:^(element)$"
         "opacity 0.85,class:^(lollypop)$"
-        "opacity 1.0,class:^(Brave-browser),fullscreen:1"
+        "opacity 1.0,class:^(brave-browser),fullscreen:1"
         "opacity 1.0,class:^(librewolf),fullscreen:1"
-        "opacity 0.85,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$"
-        "opacity 0.85,title:\[.*\] - My Local Dashboard Awesome Homepage"
-        "opacity 0.85,class:^(org.keepassxc.KeePassXC)$"
-        "opacity 0.85,class:^(org.gnome.Nautilus)$"
-        "opacity 0.85,class:^(org.gnome.Nautilus)$"
+        "opacity 0.85,title:^(my local dashboard awesome homepage - qutebrowser)$"
+        "opacity 0.85,title:\[.*\] - my local dashboard awesome homepage"
+        "opacity 0.85,class:^(org.keepassxc.keepassxc)$"
+        "opacity 0.85,class:^(org.gnome.nautilus)$"
+        "opacity 0.85,class:^(org.gnome.nautilus)$"
 
         "group, class:kitty"
-        "group, title:Code"
+        "group, title:code"
         "group, class:firefox"
         "group, class:code"
+
+        "float,class:flameshot"
+        "monitor 0,class:flameshot"
+        "move 0 0,class:flameshot"
+        "noanim,class:flameshot"
+        "noborder,class:flameshot"
+        "rounding 0,class:flameshot"
       ];
       layerrule = [
         "blur,waybar"
@@ -278,12 +290,19 @@ in
       ];
 
       bind = [
+        "SUPER, PRINT, exec, hyprshot -m window"
+        # Screenshot a monitor
+        ", PRINT, exec, hyprshot -m output"
+        # Screenshot a region
+        "SUPERSHIFT, PRINT, exec, hyprshot -m region"
+        "ALT, PRINT, exec, XDG_CURRENT_DESKTOP=sway flameshot"
 
         "SUPER,I,exec,networkmanager_dmenu"
         "SUPER,T,exec,${userSettings.term}"
         "SUPER,grave,exec,${userSettings.browser}"
         # "SUPER,P,exec,keepmenu"
         "SUPER,P,exec, kitty --class scratch_term -e ipdf ~"
+        "SUPER,O,exec, obsidian"
         "SUPERSHIFT,P,exec,hyprprofile-dmenu"
         "SUPER,Z,exec,if hyprctl clients | grep scratch_term; then echo \"scratch_term respawn not needed\"; else alacritty --class scratch_term; fi"
         "SUPER,Z,togglespecialworkspace,scratch_term"

@@ -86,7 +86,7 @@ in
   '';
   home.file.".fehbg-stylix".executable = true;
   home.file = {
-    ".config/qt5ct/colors/oomox-current.conf".source = config.lib.stylix.colors {
+    ".config/qt6ct/colors/oomox-current.conf".source = config.lib.stylix.colors {
       template = builtins.readFile ./oomox-current.conf.mustache;
       extension = ".conf";
     };
@@ -98,7 +98,7 @@ in
       template = builtins.readFile ./Trolltech.conf.mustache;
       extension = "";
     };
-    ".config/qt5ct/qt5ct.conf".text = pkgs.lib.mkBefore (builtins.readFile ./qt5ct.conf);
+    ".config/qt6ct/qt6ct.conf".text = pkgs.lib.mkBefore (builtins.readFile ./qt6ct.conf);
   };
   home.file.".config/hypr/hyprpaper.conf".text = ''
     preload = ''+config.stylix.image+''
@@ -107,11 +107,11 @@ in
 
   '';
   home.packages = with pkgs; [
-     libsForQt5.qt5ct pkgs.libsForQt5.breeze-qt5 libsForQt5.breeze-icons pkgs.noto-fonts-monochrome-emoji
+     kdePackages.qt6ct kdePackages.breeze kdePackages.breeze-icons pkgs.noto-fonts-monochrome-emoji
   ];
   qt = {
     enable = true;
-    style.package = pkgs.libsForQt5.breeze-qt5;
+    style.package = pkgs.kdePackages.breeze;
     style.name = "breeze-dark";
     platformTheme.name = "kde";
   };

@@ -30,9 +30,13 @@
       rev = "58e1a4a4997728be886a46d031514b3f09763c5d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprgrass.url = "github:horriblename/hyprgrass/0bb3b822053c813ab6f695c9194089ccb5186cc3";  
+    hyprgrass.url = "github:horriblename/hyprgrass/0bb3b822053c813ab6f695c9194089ccb5186cc3";
     hyprgrass.inputs.hyprland.follows = "hyprland";
     nwg-dock-hyprland-pin-nixpkgs.url = "nixpkgs/2098d845d76f8a21ae4fe12ed7c7df49098d3f15";
+    xmonad-contexts = {
+      url = "github:Procrat/xmonad-contexts";
+      flake = false;
+    };
   };
 
   outputs =

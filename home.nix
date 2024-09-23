@@ -23,13 +23,8 @@
     ./user/app/vscodium.nix
     ./user/app/ranger/ranger.nix
     ./user/wm/${userSettings.wm}/${userSettings.wm}.nix
-    ./user/wm/xmonad/xmonad.nix
+    ./user/wm/xmonad
   ];
-  xdg.enable = true;
-  xsession = {
-    enable = true;
-    initExtra = "xset r rate 200 40";
-  };
   home.sessionVariables = {
     EDITOR = userSettings.editor;
     TERM = userSettings.term;

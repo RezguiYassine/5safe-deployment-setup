@@ -39,7 +39,7 @@ in
       wev
       hyprshot
       python311Packages.pyqt6
-      libsForQt5.qt5.qtwayland
+      kdePackages.qtwayland
       qt6.qtwayland
       xdg-utils
       xdg-desktop-portal
