@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  userSettings,
+  ...
+}:
 let
   aliases = builtins.readFile ./zsh-aliases;
   functions = builtins.readFile ./zsh-functions;
@@ -102,15 +107,18 @@ in
       export __GL_VRR_ALLOWED=0
       export WLR_DRM_NO_ATOMIC=1
       # export QT_AUTO_SCREEN_SCALE_FACTOR=1
-      export QT_QPA_PLATFORM=wayland
+      export QT_QPA_PLATFORM=${userSettings.wmType}
       # export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-      export GDK_BACKEND=wayland
+      export GDK_BACKEND=${userSettings.wmType}
       export GBM_BACKEND=nvidia-drm
       export __GLX_VENDOR_LIBRARY_NAME=nvidia
       export MOZ_ENABLE_WAYLAND=1
       # export WLR_NO_HARDWARE_CURSORS=1
-      export SDL_VIDEODRIVER=wayland
+      export SDL_VIDEODRIVER=${userSettings.wmType}
       export _JAVA_AWT_WM_NONREPARENTING=1
+      export XMONAD_CACHE_DIR="$XDG_CACHE_HOME/xmonad"
+      export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME/xmonad"
+      export XMONAD_DATA_DIR="$XDG_DATA_HOME/xmonad" 
     '';
   };
   programs.bash = {
