@@ -8,5 +8,6 @@
     ./xmonad.nix
     ./kde.nix
     ./x11.nix
+    ./qtile.nix
   ];
 }
