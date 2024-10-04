@@ -22,6 +22,6 @@
   })
 ];
 
-services.xserver.displayManager.sessionPackages = with pkgs; [ qtile-unwrapped pywlroots];
+services.displayManager.sessionPackages = with pkgs; [ qtile-unwrapped ];
 services.xserver.windowManager.qtile.enable = true;
 }
