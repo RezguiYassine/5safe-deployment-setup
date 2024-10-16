@@ -1,10 +1,10 @@
 from libqtile.lazy import lazy
 from libqtile.config import Key, Group, Drag, Click
 from config import mod, terminal, shift, alt, control, backspace
-from expression.collections import Block
 import utils as U
-import operator
 from groups import workspaces
+from functools import reduce
+import operator
 
 switch_windows = [
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -34,9 +34,12 @@ grow_window = [
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 ]
 
-workspaces_keys = workspaces.map(
-    lambda group: [U.switch_group(group), U.move_window_to_group(group)]
-).reduce(operator.add)
+workspaces_keys = reduce(
+    operator.add,
+    map(
+        lambda group: [U.switch_group(group), U.move_window_to_group(group)], workspaces
+    ),
+)
 
 launch_programs = [
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
