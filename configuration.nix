@@ -32,9 +32,8 @@
     ./system/app/virtualization.nix
     ./system/app/gamemode.nix
     ./system/app/steam.nix
-
     ./system/style/stylix.nix
-    ./system/wm/${userSettings.wm}.nix
+    ./system/wm
   ];
 
   # Bootloader.
@@ -109,9 +108,12 @@
     wget
     zsh
     fzf
+    htop
     bat
     lshw
     wpa_supplicant
+    wayland-scanner
+    kdePackages.qtbase
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
