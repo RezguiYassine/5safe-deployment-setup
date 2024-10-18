@@ -22,5 +22,17 @@
         executablePath = "${pkgs.haskellPackages.implicit-hie}/bin/gen-hie";
       };
     };
+    userSettings = {
+      "svelte-enable-ts-plugin" = true;
+      "languageServerHaskell.enableHIE" = true;
+      "languageServerHaskell.hieExecutablePath" = "${pkgs.haskellPackages.implicit-hie}/bin/gen-hie";
+      "files.autoSave" = "afterDelay";
+      "files.autoSaveDelay" = 1000;
+      # Whitespace
+      "files.trimTrailingWhitespace" = true;
+      "files.trimFinalNewlines" = true;
+      "files.insertFinalNewline" = true;
+      "diffEditor.ignoreTrimWhitespace" = false;
+    };
   };
 }
