@@ -1,4 +1,4 @@
-{...}:
+{lib, ...}:
 
 {
   services.redshift = {
@@ -7,7 +7,11 @@
     longitude = 12.94;
     provider = "manual";
     settings = {
-      fade = 1;
-    }
-  }
+      redshift = {
+        fade = 1;
+        temp-day = lib.mkForce 5000;
+        temp-night = lib.mkForce 4000;
+      };
+    };
+  };
 }
