@@ -14,8 +14,11 @@ pkgs.mkShell {
     ipykernel
     xkbcommon
     pkgs.iw
+    pkgs.qtile
     pkgs.python312Packages.iwlib
     pkgs.python312Packages.black
+    pkgs.python312Packages.mypy
+    pkgs.python312Packages.qtile
   ];
 
   shellHook = ''
