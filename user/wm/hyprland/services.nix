@@ -1,8 +1,15 @@
-{ ... }:
+{ pkgs, config, ... }:
+
 
 {
-  services.udiskie.enable = true;
-  services.udiskie.tray = "always";
-  services.swayosd.enable = true;
-  services.swayosd.topMargin = 0.5;
+
+  services.udiskie = {
+    enable = true;
+    tray = "always";
+  };
+  services.swayosd = {
+    enable = true;
+    topMargin = 0.5;
+  };
+
 }
