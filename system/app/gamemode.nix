@@ -2,6 +2,17 @@
 
 {
   # Feral GameMode
-  environment.systemPackages = [ pkgs.gamemode ];
+  environment.systemPackages = with pkgs;[
+    gamemode
+    (lutris.override {
+        extraPkgs = pkgs: [
+         # List package dependencies here
+        ];
+        extraLibraries =  pkgs: [
+        # List library dependencies here
+        ];
+      }
+    )
+  ];
   programs.gamemode.enable = true;
 }
