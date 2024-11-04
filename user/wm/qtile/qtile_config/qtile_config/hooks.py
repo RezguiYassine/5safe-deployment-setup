@@ -3,6 +3,8 @@ import subprocess
 
 from libqtile import hook
 
+includes = lambda s, subs: s.lower().find(subs) != -1
+
 
 @hook.subscribe.startup_once
 def autostart():
@@ -33,4 +35,12 @@ def idle_dialogues(window):
 def blueman_float(window):
     name: str = window.window.get_name()
     if name.lower().find("blueman-manager") != -1:
+        window.floating = True
+
+
+@hook.subscribe.client_new
+def nwggrid_wrapper_float(window):
+    name: str = window.window.get_name
+    group: str = window.group.get_name
+    if includes(name, "nwggrid"):
         window.floating = True

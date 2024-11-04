@@ -11,6 +11,7 @@ in
   home.packages =
     with pkgs;
     [
+      python312Packages.qtile-extras
       xclip
       redshift
       redshift-plasma-applet
