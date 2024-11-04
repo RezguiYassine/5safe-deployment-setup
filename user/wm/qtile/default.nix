@@ -17,10 +17,20 @@ in
     size = cursorSize;
     package = pkgs.quintom-cursor-theme;
   };
-  gtk.cursorTheme = {
-    package = pkgs.quintom-cursor-theme;
-    name = cursorTheme;
-    size = cursorSize;
+  gtk.iconTheme = {
+    package = pkgs.papirus-icon-theme;
+    name = if (config.stylix.polarity == "dark") then "Papirus-Dark" else "Papirus-Light";
+  };
+  # gtk.cursorTheme = {
+  #   package = pkgs.quintom-cursor-theme;
+  #   name = cursorTheme;
+  #   size = cursorSize;
+  # };
+  qt = {
+    enable = true;
+    style.package = pkgs.kdePackages.breeze;
+    style.name = "Adwaita-Dark";
+    platformTheme.name = "kde";
   };
   xsession = {
         enable = true;

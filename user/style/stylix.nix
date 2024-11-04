@@ -107,14 +107,12 @@ in
 
   '';
   home.packages = with pkgs; [
-     kdePackages.qt6ct kdePackages.breeze kdePackages.breeze-icons pkgs.noto-fonts-monochrome-emoji
+      kdePackages.qt6ct
+      kdePackages.breeze
+      # kdePackages.breeze-icons
+      pkgs.noto-fonts-monochrome-emoji
   ];
-  qt = {
-    enable = true;
-    style.package = pkgs.kdePackages.breeze;
-    style.name = "breeze-dark";
-    platformTheme.name = "kde";
-  };
+
   fonts.fontconfig.defaultFonts = {
     monospace = [ userSettings.font ];
     sansSerif = [ userSettings.font ];
