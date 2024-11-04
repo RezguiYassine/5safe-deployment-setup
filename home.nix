@@ -12,18 +12,15 @@
   imports = [
     ./user/shell/sh.nix
     ./user/lang/haskell.nix
-    # ./user/lang/ts.nix
     ./user/tmux/tmux.nix
     ./user/style/stylix.nix
-    ./user/terminal/kitty.nix
-    ./user/terminal/alacritty.nix
     ./user/app/helix.nix
     ./user/app/git/git.nix
     ./user/lang/python/python.nix
     ./user/app/vscodium.nix
     ./user/app/ranger/ranger.nix
-    ./user/wm/${userSettings.wm}/${userSettings.wm}.nix
-    ./user/wm/xmonad
+    ./user/wm/${userSettings.wm}
+    ./user/wm/hyprland
   ];
   home.sessionVariables = {
     EDITOR = userSettings.editor;
@@ -51,31 +48,24 @@
     wine
     bottles
     (lollypop.override { youtubeSupport = false; })
-    vlc
     mate.atril
+    kdePackages.phonon-vlc
     pasystray
     # fluffychat
     tigervnc
     vivaldi
     signal-desktop
-
+    libreoffice
     remmina
     obsidian
-    vdhcoapp
-    jetbrains.pycharm-professional
-    jetbrains.webstorm
     qbittorrent
     gparted
     deno
-    nodePackages.pnpm
-    bun
-
+    sshpass
+    mangohud # for gaming performance metrics
+    vlc
   ];
   services.pasystray.enable = false;
-  gtk.iconTheme = {
-    package = pkgs.papirus-icon-theme;
-    name = if (config.stylix.polarity == "dark") then "Papirus-Dark" else "Papirus-Light";
-  };
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
   # home.file."shared".source = "/mnt/shared";
