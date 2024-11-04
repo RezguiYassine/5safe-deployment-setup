@@ -110,23 +110,24 @@
           };
         };
         "hyprland/workspaces" = {
-          "format" = "{icon}";
-          "format-icons" = {
-            "1" = "󱚌";
-            "2" = "󰖟";
-            "3" = "";
-            "4" = "󰎄";
-            "5" = "󰋩";
-            "6" = "";
-            "7" = "󰄖";
-            "8" = "󰑴";
-            "9" = "󱎓";
-            "scratch_term" = "_";
-            "scratch_ranger" = "_󰴉";
-            "scratch_music" = "_";
-            "scratch_btm" = "_";
-            "scratch_pavucontrol" = "_󰍰";
-          };
+          "format"= "{name}";
+        # "format" = "{icon}";
+        #   "format-icons" = {
+        #     "1" = "󱚌";
+        #     "2" = "󰖟";
+        #     "3" = "";
+        #     "4" = "󰎄";
+        #     "5" = "󰋩";
+        #     "6" = "";
+        #     "7" = "󰄖";
+        #     "8" = "󰑴";
+        #     "9" = "󱎓";
+        #     "scratch_term" = "_";
+        #     "scratch_ranger" = "_󰴉";
+        #     "scratch_music" = "_";
+        #     "scratch_btm" = "_";
+        #     "scratch_pavucontrol" = "_󰍰";
+        #   };
           "on-click" = "activate";
           "on-scroll-up" = "hyprnome";
           "on-scroll-down" = "hyprnome --previous";
