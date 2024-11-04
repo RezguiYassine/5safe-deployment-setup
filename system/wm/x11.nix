@@ -17,17 +17,18 @@
     };
     excludePackages = [ pkgs.xterm ];
     displayManager = {
-      lightdm.enable = true;
+      lightdm.enable = false;
       sessionCommands = ''
       xset -dpms
       xset s blank
-      xset r rate 350 50
       xset s 300
+      xset r rate 350 100
       ${pkgs.lightlocker}/bin/light-locker --idle-hint &
     '';
     };
-    libinput = {
+
+  };
+  services.libinput = {
       touchpad.disableWhileTyping = true;
     };
-  };
 }
