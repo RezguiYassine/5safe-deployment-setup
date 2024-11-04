@@ -19,7 +19,6 @@ in
       killall
       polkit_gnome
       nwg-launchers
-      papirus-icon-theme
       libva-utils
       libinput-gestures
       gsettings-desktop-schemas
