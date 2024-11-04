@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   services.tumbler.enable = true; # Thumbnail support for images
@@ -20,4 +20,21 @@
     };
   };
 
+  services = {
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "eu, iq, ru, tr";
+        variant = "";
+        options = "grp:rctrl_rshift_toggle";
+      };
+    };
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+      enableHidpi = true;
+      # theme = "chili";
+      package = lib.mkForce pkgs.kdePackages.sddm;
+    };
+  };
 }
