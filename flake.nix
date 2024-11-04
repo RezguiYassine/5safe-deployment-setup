@@ -10,7 +10,10 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.url = "github:danth/stylix";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/Hyprland.git";
@@ -71,8 +74,8 @@
         name = "Falcon";
         dotfilesDir = "~/.dotfiles";
         theme = "ayu-dark";
-        wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
-        wmType = if (wm == "hyprland") then "wayland" else "x11";
+        wm = "qtile"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
+        wmType = if (wm == "hyprland" || wm == "qtile") then "wayland" else "x11";
         browser = "firefox"; # Default browser; must select one from ./user/app/browser/
         term = "kitty";
         font = "DejaVu Sans Mono";
