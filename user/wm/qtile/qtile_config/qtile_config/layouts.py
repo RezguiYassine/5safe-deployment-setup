@@ -2,8 +2,8 @@ from libqtile import layout
 from libqtile.config import Drag, Group, Key, Match, Screen, ScratchPad
 
 layouts = [
-    layout.MonadTall(),
-    layout.TreeTab(),
+    layout.MonadTall(ratio=0.56, single_border_width=0, single_margin=9, margin=9),
+    layout.TreeTab(border_width=0),
     layout.Max(),
     layout.Zoomy(),
     layout.Stack(num_stacks=2),
@@ -20,6 +20,15 @@ floating_layout = layout.Floating(
         Match(title="Myuzi"),
         Match(title="scratchpad"),
         Match(wm_class="gtkcord4"),
+        Match(wm_class="gnome-calendar"),
+        Match(title="steamwebhelper"),
+        Match(wm_class="gnome-system-monitor"),
+        Match(wm_class="nwggrid-wrapper"),
+        Match(wm_instance_class="nwggrid-wrapper"),
+        Match(wm_class="nwggrid"),
+        Match(title="Application Launcher"),
+        Match(title="nwggrid"),
+        Match(wm_instance_class="nwggrid"),
         Match(wm_class="Geary"),
         Match(wm_class="Pavucontrol"),
         Match(wm_class="Syncthing GTK"),
