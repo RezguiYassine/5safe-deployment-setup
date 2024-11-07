@@ -11,7 +11,6 @@ in
   home.packages =
     with pkgs;
     [
-      python312Packages.qtile-extras
       xclip
       redshift
       redshift-plasma-applet
@@ -65,15 +64,6 @@ in
         noDisplay = true;
         icon = "/home/" + userSettings.username + "/.local/share/pixmaps/hyprland-logo-stylix.svg";
       })
-      (pkgs.writeScriptBin "nwg-dock-wrapper" ''
-        #!/bin/sh
-        if pgrep -x ".nwg-dock-hyprl" > /dev/null
-        then
-          nwg-dock-hyprland
-        else
-          nwg-dock-hyprland -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8
-        fi
-      '')
     ];
 
 }
