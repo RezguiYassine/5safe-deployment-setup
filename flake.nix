@@ -11,7 +11,7 @@
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:danth/stylix/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
@@ -75,7 +75,7 @@
         dotfilesDir = "~/.dotfiles";
         theme = "ayu-dark";
         wm = "qtile"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
-        wmType = if (wm == "hyprland" || wm == "qtile") then "wayland" else "x11";
+        wmType = if (wm == "hyprland") then "wayland" else "x11";
         browser = "firefox"; # Default browser; must select one from ./user/app/browser/
         term = "kitty";
         font = "DejaVu Sans Mono";
