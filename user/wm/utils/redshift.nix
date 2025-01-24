@@ -9,8 +9,8 @@
     settings = {
       redshift = {
         fade = 1;
-        temp-day = lib.mkForce 5000;
-        temp-night = lib.mkForce 4000;
+        temp-day = lib.mkForce 3200;
+        temp-night = lib.mkForce 2800;
       };
     };
   };
