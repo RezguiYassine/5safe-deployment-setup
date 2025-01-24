@@ -44,3 +44,12 @@ def nwggrid_wrapper_float(window):
     group: str = window.group.get_name
     if includes(name, "nwggrid"):
         window.floating = True
+
+
+@hook.subscribe.client_new
+def lutris_float(window):
+    info = window.window.info()
+    name = info["name"]
+    wm_class = info["wm_class"]
+    if wm_class.lower().includes("lutris"):
+        window.floating = True
