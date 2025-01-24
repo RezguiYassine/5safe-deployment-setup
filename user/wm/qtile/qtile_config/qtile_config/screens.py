@@ -1,11 +1,11 @@
 from libqtile import bar, widget
 from libqtile.lazy import lazy
 
+
 def init_widgets_list(colors):
     left_side_widgets = [
         widget.TextBox(
             text="  ",
-            mouse_callbacks={"Button1": lazy.spawn("nwggrid-wrapper")},
             foreground=colors["cyan"],  # Adjusted to match Waybar
             padding=8,
         ),
@@ -62,7 +62,7 @@ def init_widgets_list(colors):
             measure_mem="G",
             foreground=colors["magenta"],  # Memory widget color
             update_interval=2.0,
-            mouse_callbacks={"Button1": lazy.spawn("gnome-system-monitor")}
+            mouse_callbacks={"Button1": lazy.spawn("gnome-system-monitor")},
         ),
         widget.ThermalSensor(
             foreground=colors["red"],  # Temperature sensor color
