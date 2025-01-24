@@ -22,7 +22,7 @@ in
       libva-utils
       libinput-gestures
       gsettings-desktop-schemas
-      gnome.zenity
+      pkgs.zenity
       wlr-randr
       wtype
       ydotool

@@ -14,8 +14,8 @@ in
       xclip
       redshift
       redshift-plasma-applet
-      gnome.gnome-calendar
-      gnome.gnome-system-monitor
+      pkgs.gnome-calendar
+      pkgs.gnome-system-monitor
       alacritty
       kitty
       feh
@@ -25,7 +25,7 @@ in
       libva-utils
       libinput-gestures
       gsettings-desktop-schemas
-      gnome.zenity
+      pkgs.zenity
       wlr-randr
       wtype
       ydotool
