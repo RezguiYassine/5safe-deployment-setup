@@ -17,7 +17,9 @@
     };
     excludePackages = [ pkgs.xterm ];
     displayManager = {
-      lightdm.enable = false;
+      lightdm = {
+        enable = true;
+      };
       sessionCommands = ''
       xset -dpms
       xset s blank

@@ -30,10 +30,10 @@
       };
     };
     displayManager.sddm = {
-      enable = true;
+      enable = false;
       wayland.enable = true;
       enableHidpi = true;
-      # theme = "chili";
+      theme = "breeze"; #"chili";
       package = lib.mkForce pkgs.kdePackages.sddm;
     };
   };
