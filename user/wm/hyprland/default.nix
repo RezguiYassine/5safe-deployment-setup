@@ -65,23 +65,6 @@ let
   touchGesturesConfig = {
     sensitivity = 4.0;
     long_press_delay = 260;
-    hyprgrass-bind = [
-      ", edge:r:l, exec, hyprnome"
-      ", edge:l:r, exec, hyprnome --previous"
-      ", swipe:3:d, exec, nwggrid-wrapper"
-      ", swipe:3:u, hyprexpo:expo, toggleoverview"
-      ", swipe:3:d, exec, nwggrid-wrapper"
-      ", swipe:3:l, exec, hyprnome --previous"
-      ", swipe:3:r, exec, hyprnome"
-      ", swipe:4:u, movewindow,u"
-      ", swipe:4:d, movewindow,d"
-      ", swipe:4:l, movewindow,l"
-      ", swipe:4:r, movewindow,r"
-      ", tap:3, fullscreen,1"
-      ", tap:4, fullscreen,0"
-      ", longpress:2, movewindow"
-      ", longpress:3, resizewindow"
-    ];
   };
   cursorSize = 30;
   cursorSizeStr = "30";
@@ -102,7 +85,7 @@ in
     ./hypridle.nix
     ../utils/gtklock.nix
     ../utils/fnott.nix
-    ../utils/fuzzel.nix
+    # ../utils/fuzzel.nix
     ../utils/nwg-grid.nix
     ../utils/nwg-dock.nix
     ../utils/nwg-drawer.nix
@@ -122,12 +105,7 @@ in
     plugins = [
       pluginsPackages.hyprtrails
       pluginsPackages.hyprexpo
-      inputs.hyprgrass.packages.${pkgs.system}.default
     ];
-    # extraConfig = ''
-    #   source=~/.config/hypr/monitors.conf
-    # '';
-
     settings = {
       env = [
 
@@ -174,7 +152,6 @@ in
       xwayland = {
         force_zero_scaling = true;
       };
-      source = [ "${config.home.homeDirectory}/.config/hypr/monitors.conf" ];
       # monitor = [
       #   "eDP-2,1920x1080@165.003006,0x0,1.0"
       #   # "eDP-2,2560x1440@165.003006,0x0,1.0"
