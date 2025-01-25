@@ -45,30 +45,34 @@
       withOpenASAR = true;
       # withVencord = true;
     })
-    wine
+    wineWowPackages.stable
+    winetricks
+    protontricks
     bottles
     (lollypop.override { youtubeSupport = false; })
     mate.atril
-    kdePackages.phonon-vlc
     pasystray
     # fluffychat
+    vdhcoapp
     tigervnc
     vivaldi
     signal-desktop
     libreoffice
     remmina
     obsidian
-    qbittorrent
     gparted
     deno
     sshpass
     mangohud # for gaming performance metrics
     vlc
+    xorg.xhost
+    whatsapp-for-linux
+    openfortivpn
+    frostwire-bin
+    telegram-desktop
+    okular
   ];
   services.pasystray.enable = false;
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
-  # home.file."shared".source = "/mnt/shared";
-  # home.file."Audios".source = "/mnt/shared/Audios";
-
 }
