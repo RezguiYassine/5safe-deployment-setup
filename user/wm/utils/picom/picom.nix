@@ -6,7 +6,7 @@
     enable = true;
     package = pkgs.picom-pijulius;
     vSync = true;
-    backend = "xr_glx_hybrid";
+    backend = "glx";
     wintypes = {
       normal = { shadow = false;};
       tooltip = { shadow = true; opacity = 0.75; focus = true; full-shadow = false; };
@@ -126,11 +126,8 @@
     mark-ovredir-focused = true;
     detect-rounded-corners = true;
     detect-client-opacity = true;
-    refresh-rate = 0;
     detect-transient = true;
     detect-client-leader = true;
-    glx-no-stencil = true;
-    glx-no-rebind-pixmap = true;
     log-level = "info";
     unredir-if-possible = true;
     };
