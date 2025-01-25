@@ -1,11 +1,18 @@
 #! /run/current-system/sw/bin/sh
-#xfsettingsd &
-#xfce4-power-manager &
-#xfce4-notifyd &
-blueman-applet &
-~/.fehbg-stylix &
-xset r rate 350 100
-# nm-applet &
+start_if_not_running() {
+  if ! pgrep -x "$1" > /dev/null; then
+    $2 &
+  else
+    echo "$1 is already running"
+  fi
+}
+
+start_if_not_running "blueman-applet" "blueman-applet"
+start_if_not_running "feh" "~/.fehbg-stylix"
+start_if_not_running "picom" "picom -b"
+start_if_not_running "dunst" "dunst"
+start_if_not_running "pasystray" "pasystray"
+start_if_not_running "nm-applet" "nm-applet"
 # GOMAXPROCS=1 syncthing --no-browser &
 # gnome-keyring-daemon --daemonize --login &
 # gnome-keyring-daemon --start --components=secrets &
