@@ -4,7 +4,7 @@
   imports = [
     ./tmux.nix
     ./helix.nix
-    ./git/git.nix
+    ./git.nix
     ./vscodium.nix
     ./ranger/ranger.nix
   ];
