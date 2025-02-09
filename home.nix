@@ -15,7 +15,6 @@
     ./user/style/stylix.nix
     ./user/lang/python/python.nix
     ./user/wm/${userSettings.wm}
-    ./user/wm/hyprland
     ./user/apps
   ];
   home.sessionVariables = {
