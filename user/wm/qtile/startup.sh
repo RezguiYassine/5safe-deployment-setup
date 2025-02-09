@@ -6,11 +6,8 @@ start_if_not_running() {
     echo "$1 is already running"
   fi
 }
-
+~/.fehbg-stylix
 start_if_not_running "blueman-applet" "blueman-applet"
-start_if_not_running "feh" "~/.fehbg-stylix"
-start_if_not_running "picom" "picom -b"
-start_if_not_running "dunst" "dunst"
 start_if_not_running "pasystray" "pasystray"
 start_if_not_running "nm-applet" "nm-applet"
 # GOMAXPROCS=1 syncthing --no-browser &
