@@ -12,15 +12,11 @@
   imports = [
     ./user/shell/sh.nix
     ./user/lang/haskell.nix
-    ./user/tmux/tmux.nix
     ./user/style/stylix.nix
-    ./user/app/helix.nix
-    ./user/app/git/git.nix
     ./user/lang/python/python.nix
-    ./user/app/vscodium.nix
-    ./user/app/ranger/ranger.nix
     ./user/wm/${userSettings.wm}
     ./user/wm/hyprland
+    ./user/apps
   ];
   home.sessionVariables = {
     EDITOR = userSettings.editor;

@@ -7,5 +7,7 @@
     ./git.nix
     ./vscodium.nix
     ./ranger/ranger.nix
+    ./thunderbird.nix
+    ./gnome-keyring.nix
   ];
 }
