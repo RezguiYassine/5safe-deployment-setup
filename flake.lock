@@ -115,6 +115,22 @@
         "type": "github"
       }
     },
+    "blocklist-hosts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738722076,
+        "narHash": "sha256-TEk003KAgzs7KUgx2JevONr2aML75FLAp0FdQ+pyz6s=",
+        "owner": "StevenBlack",
+        "repo": "hosts",
+        "rev": "04e625de9df0cce5264767c0e8524b5dcaaaf02c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "StevenBlack",
+        "repo": "hosts",
+        "type": "github"
+      }
+    },
     "cabal-32": {
       "flake": false,
       "locked": {
@@ -1738,6 +1754,7 @@
     },
     "root": {
       "inputs": {
+        "blocklist-hosts": "blocklist-hosts",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
