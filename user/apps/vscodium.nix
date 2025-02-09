@@ -33,6 +33,10 @@
       "files.trimFinalNewlines" = true;
       "files.insertFinalNewline" = true;
       "diffEditor.ignoreTrimWhitespace" = false;
+      "workbench.editorAssociations" = {
+        "{git,gitlens,git-graph}:/**/*.{md,csv,svg}" = "default";
+      };
+      "explorer.fileNesting.enabled" = true;
     };
   };
 }
