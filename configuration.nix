@@ -88,10 +88,10 @@
       "wheel"
       "video"
       "input"
+      "vboxusers"
     ];
     packages = with pkgs; [
       kdePackages.kate
-      #  thunderbird
     ];
   };
 
@@ -115,6 +115,7 @@
     wpa_supplicant
     wayland-scanner
     kdePackages.qtbase
+    timeshift
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -159,16 +160,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
-  fileSystems."/mnt/shared" = {
-    device = "/dev/mapper/vg_main-shared";
-    fsType = "ext4";
-    options = [
-      "ro"
-      "nofail" # Prevent system from failing if this drive doesn't mount
-
-    ];
-  };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
