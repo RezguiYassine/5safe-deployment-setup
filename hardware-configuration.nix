@@ -40,6 +40,9 @@
     "ext4"
     "fat32"
     "btrfs"
+    "cpufreq_powersave"
+    "i2c-dev"
+    "i2c-piix4"
   ];
 
   fileSystems."/" = {
@@ -109,7 +112,7 @@
       "noatime"
     ];
   };
-  
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
