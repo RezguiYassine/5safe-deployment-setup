@@ -10,6 +10,7 @@ in
     ../../terminal/alacritty.nix
     ../../terminal/kitty.nix
     ./deps.nix
+    ./services.nix
   ];
   home.pointerCursor = {
     x11.enable = true;
@@ -21,11 +22,11 @@ in
     package = pkgs.papirus-icon-theme;
     name = if (config.stylix.polarity == "dark") then "Papirus-Dark" else "Papirus-Light";
   };
-  # gtk.cursorTheme = {
-  #   package = pkgs.quintom-cursor-theme;
-  #   name = cursorTheme;
-  #   size = cursorSize;
-  # };
+  gtk.cursorTheme = {
+    package = pkgs.quintom-cursor-theme;
+    name = cursorTheme;
+    size = cursorSize;
+  };
   qt = {
     enable = true;
     style.package = pkgs.kdePackages.breeze;
@@ -33,10 +34,10 @@ in
     platformTheme.name = "kde";
   };
   xsession = {
-        enable = true;
-        numlock.enable = true;
-       preferStatusNotifierItems = true;
-      };
+    enable = true;
+    numlock.enable = true;
+    preferStatusNotifierItems = true;
+  };
   programs.rofi.enable = true;
   home.file.".config/qtile/autostart.sh".source = ./startup.sh;
   home.file.".config/qtile/qtile_config".source = ./qtile_config/qtile_config;
