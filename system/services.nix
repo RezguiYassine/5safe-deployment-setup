@@ -18,23 +18,11 @@
         TimeoutStopSec = 10;
       };
     };
-  };
-
-  services = {
-    xserver = {
-      enable = true;
-      xkb = {
-        layout = "eu, iq, ru, tr";
-        variant = "";
-        options = "grp:rctrl_rshift_toggle";
+    services."systemd-suspend" = {
+      serviceConfig = {
+        Environment=''"SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false"'';
       };
     };
-    displayManager.sddm = {
-      enable = false;
-      wayland.enable = true;
-      enableHidpi = true;
-      theme = "breeze"; #"chili";
-      package = lib.mkForce pkgs.kdePackages.sddm;
-    };
   };
+
 }
