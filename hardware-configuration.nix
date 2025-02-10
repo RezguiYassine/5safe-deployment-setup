@@ -30,6 +30,9 @@
     "kvm-intel"
     "nvidia"
     "cryptd"
+    "cpufreq_powersave"
+    "i2c-dev"
+    "i2c-piix4"
   ];
   boot.kernelParams = [
     "nvidia-drm.fbdev=1"
@@ -40,9 +43,6 @@
     "ext4"
     "fat32"
     "btrfs"
-    "cpufreq_powersave"
-    "i2c-dev"
-    "i2c-piix4"
   ];
 
   fileSystems."/" = {
