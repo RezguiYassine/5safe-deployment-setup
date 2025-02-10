@@ -10,12 +10,12 @@
   home.homeDirectory = "/home/" + userSettings.username;
   programs.home-manager.enable = true;
   imports = [
-    ./user/shell/sh.nix
-    ./user/lang/haskell.nix
-    ./user/style/stylix.nix
-    ./user/lang/python/python.nix
-    ./user/wm/${userSettings.wm}
-    ./user/apps
+    ../../user/shell/sh.nix
+    ../../user/lang/haskell.nix
+    ../../user/style/stylix.nix
+    ../../user/lang/python/python.nix
+    ../../user/wm/${userSettings.wm}
+    ../../user/apps
   ];
   home.sessionVariables = {
     EDITOR = userSettings.editor;

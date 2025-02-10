@@ -16,25 +16,25 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./system/hardware/opengl.nix
-    ./system/hardware/bluetooth.nix
-    ./system/hardware/nvidia.nix
-    ./system/hardware/power.nix
-    ./system/hardware/printing.nix
-    ./system/hardware/systemd.nix
-    ./system/hardware/time.nix
-    ./system/security
-    ./system/services.nix
-    (import ./system/app/docker.nix {
+   ../../system/hardware/opengl.nix
+   ../../system/hardware/bluetooth.nix
+   ../../system/hardware/nvidia.nix
+   ../../system/hardware/power.nix
+   ../../system/hardware/printing.nix
+   ../../system/hardware/systemd.nix
+   ../../system/hardware/time.nix
+   ../../system/security
+   ../../system/services.nix
+    (import ../../system/app/docker.nix {
       storageDriver = null;
       inherit pkgs userSettings lib;
     })
-    ./system/app/waydroid.nix
-    ./system/app/virtualization.nix
-    ./system/app/gamemode.nix
-    ./system/app/steam.nix
-    ./system/style/stylix.nix
-    ./system/wm
+    ../../system/app/waydroid.nix
+    ../../system/app/virtualization.nix
+    ../../system/app/gamemode.nix
+    ../../system/app/steam.nix
+    ../../system/style/stylix.nix
+    ../../system/wm
   ];
 
   # Bootloader.

@@ -62,7 +62,7 @@
       systemSettings = {
         system = "x86_64-linux";
         hostName = "snowfire";
-        profile = "personal";
+        profile = "mobile";
         timeZone = "Europe/Berlin";
         locale = "en_US.UTF-8";
         bootMode = "uefi";
@@ -96,7 +96,9 @@
       homeConfigurations = {
         falcon = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./home.nix ];
+          modules = [
+            (./. + "/profiles" + ("/" + systemSettings.profile) + "/home.nix") # load home.nix from selected PROFILE
+          ];
           extraSpecialArgs = {
             # pass config variables from above
             inherit systemSettings;
@@ -111,9 +113,9 @@
         snowfire = lib.nixosSystem {
           inherit system;
           modules = [
-            ./configuration.nix
+            (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
             inputs.lix-module.nixosModules.default
-          ];
+          ]; # load configuration.nix from selected PROFILE
           specialArgs = {
             inherit systemSettings;
             inherit userSettings;
