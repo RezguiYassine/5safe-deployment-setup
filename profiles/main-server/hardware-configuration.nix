@@ -33,6 +33,7 @@
   ];
   boot.initrd.kernelModules = [
     "dm-snapshot"
+    "dm_thin_pool"
   ];
   boot.kernelModules = [
     "kvm-intel"
