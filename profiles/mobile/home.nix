@@ -1,6 +1,0 @@
-{...}:
-{
-  imports = [
-    ../static/home.nix
-  ];
-}
