@@ -33,7 +33,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       systemSettings = {
         system = "x86_64-linux";
-        hostName = "5safe-landshut-main";
+        hostName = "safe-main";
         profile = "main-server";
         timeZone = "Europe/Berlin";
         locale = "en_US.UTF-8";
@@ -62,7 +62,7 @@
     in
     {
       homeConfigurations = {
-        falcon = home-manager.lib.homeManagerConfiguration {
+        safe = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
             (./. + "/profiles" + ("/" + systemSettings.profile) + "/home.nix") # load home.nix from selected PROFILE
@@ -76,7 +76,7 @@
         };
       };
       nixosConfigurations = {
-        safe = lib.nixosSystem {
+        safe-main = lib.nixosSystem {
           inherit system;
           modules = [
             (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
