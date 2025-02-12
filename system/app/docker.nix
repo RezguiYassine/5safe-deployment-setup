@@ -1,4 +1,11 @@
-{ pkgs, lib, userSettings, storageDriver ? null, ... }:
+{ 
+  pkgs,
+  lib,
+  systemSettings,
+  userSettings,
+  storageDriver ? null,
+  ...
+}:
 
 assert lib.asserts.assertOneOf "storageDriver" storageDriver [
   null
@@ -9,11 +16,10 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
   "overlay2"
   "zfs"
 ];
-
 {
 
   hardware.nvidia-container-toolkit = {
-    enable = true;
+    enable = systemSettings.hasNvidia;
     mount-nvidia-executables = true;
     mount-nvidia-docker-1-directories = true;
   };
@@ -21,7 +27,6 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
     containers.enable = true;
     podman = {
       enable = true;
-
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
       # Required for containers under podman-compose to be able to talk to each other.
@@ -39,7 +44,7 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
         enable = true;
         setSocketVariable = true;
         daemon.settings = {
-        default-runtime = "nvidia";
+        default-runtime = if (systemSettings.hasNvidia) then "nvidia" else "containerd";
         exec-opts = ["native.cgroupdriver=cgroupfs"];
       };
     };
