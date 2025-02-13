@@ -19,13 +19,12 @@
     excludePackages = [ pkgs.xterm ];
     displayManager = {
       lightdm = {
-        enable = true;
+        enable = false;
       };
       gdm = {
-        enable = false;
+        enable = true;
         wayland = true;
       };
-
       sessionCommands = ''
         xset -dpms
         xset s blank
@@ -34,7 +33,6 @@
         ${pkgs.lightlocker}/bin/light-locker --idle-hint &
       '';
     };
-
   };
   services.libinput = {
     touchpad.disableWhileTyping = true;
