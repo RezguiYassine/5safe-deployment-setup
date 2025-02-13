@@ -90,6 +90,8 @@
       "video"
       "input"
       "vboxusers"
+      "plugdev"
+      "tty"
     ];
     packages = with pkgs; [
       kdePackages.kate
