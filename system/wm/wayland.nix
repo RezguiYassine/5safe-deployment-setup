@@ -13,20 +13,10 @@
     ./fonts.nix
   ];
 
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # to run vscode under Wayland
   environment.systemPackages = with pkgs; [
     wayland
-    waydroid
-    (sddm-chili-theme.override {
-      themeConfig = {
-        background = config.stylix.image;
-        ScreenWidth = 3840;
-        ScreenHeight = 2160;
-        blur = true;
-        recursiveBlurLoops = 3;
-        recursiveBlurRadius = 5;
-      };
-    })
-  ];
+ ];
 
   # Configure xwayland
 }
