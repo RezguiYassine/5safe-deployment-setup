@@ -7,5 +7,6 @@
     ./x11.nix
     ./wayland.nix
     ./gnome.nix
+    ./xrdp.nix
   ];
 }
