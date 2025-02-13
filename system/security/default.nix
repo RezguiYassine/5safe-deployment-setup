@@ -7,6 +7,6 @@
     ./firejail.nix
     ./firewall.nix
     ./gpg.nix
-    ./openvpn.nix
+    ./openvpn
   ];
 }
