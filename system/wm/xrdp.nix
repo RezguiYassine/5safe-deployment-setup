@@ -1,7 +1,7 @@
 {pkgs, ...}:
 {
   services.xrdp.enable = true;
-  services.xrdp.defaultWindowManager = "${pkgs.gnome.gnome-session}/bin/gnome-session";
+  services.xrdp.defaultWindowManager = "${pkgs.gnome-session}/bin/gnome-session";
   services.xrdp.openFirewall = true;
 
   # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
