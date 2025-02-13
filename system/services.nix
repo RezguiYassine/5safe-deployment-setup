@@ -4,6 +4,7 @@
   services.tumbler.enable = true; # Thumbnail support for images
   services.openssh.enable = true;
   services.gvfs.enable = true; # Mount, trash, and other functionalities
+  services.power-profiles-daemon.enable = false;
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
