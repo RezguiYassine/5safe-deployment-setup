@@ -33,8 +33,8 @@
       pkgs = nixpkgs.legacyPackages.${system};
       systemSettings = {
         system = "x86_64-linux";
-        hostName = "safe-main";
-        profile = "main-server";
+        hostName = "safe-worker";
+        profile = "worker-server";
         timeZone = "Europe/Berlin";
         locale = "en_US.UTF-8";
         bootMode = "uefi";
