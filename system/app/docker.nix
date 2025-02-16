@@ -55,6 +55,7 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
   environment.systemPackages = with pkgs; [
     docker
     docker-compose
+    containerd
     lazydocker
     dive # look into docker image layers
     podman-tui # status of containers in the terminal
