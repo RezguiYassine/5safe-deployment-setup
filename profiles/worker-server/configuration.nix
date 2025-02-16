@@ -41,6 +41,7 @@
     ../../system/style/stylix.nix
     ../../system/wm
     ../../k3s/agent.nix
+    ../../k3s/agent.nix
   ] ++ (if (systemSettings.hasNvidia) then [ ../../system/hardware/nvidia.nix ] else []);
 
   networking.hostName = systemSettings.hostName; # Define your hostname.
