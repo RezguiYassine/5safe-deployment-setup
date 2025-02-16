@@ -1,9 +1,9 @@
-{ 
+{
   pkgs,
   lib,
   systemSettings,
   userSettings,
-  storageDriver ? null,
+  storageDriver ? "btrfs",
   ...
 }:
 
@@ -26,7 +26,7 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
   virtualisation={
     containers.enable = true;
     podman = {
-      enable = true;
+      enable = false;
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
       # Required for containers under podman-compose to be able to talk to each other.
@@ -35,7 +35,7 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
     };
     docker = {
       # package = pkgs.docker_25;
-      enable = false;
+      enable = true;
       enableOnBoot = true;
       # enableNvidia = true;
       storageDriver = storageDriver;
@@ -49,7 +49,7 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
       };
     };
   };
-  
+
 };
   users.users.${userSettings.username}.extraGroups = [ "docker" ];
   environment.systemPackages = with pkgs; [
