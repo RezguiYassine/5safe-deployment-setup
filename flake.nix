@@ -76,7 +76,7 @@
         };
       };
       nixosConfigurations = {
-        safe-main = lib.nixosSystem {
+        "${hostName}" = lib.nixosSystem {
           inherit system;
           modules = [
             (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
