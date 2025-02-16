@@ -76,7 +76,7 @@
         };
       };
       nixosConfigurations = {
-        "${hostName}" = lib.nixosSystem {
+        "${systemSettings.hostName}" = lib.nixosSystem {
           inherit system;
           modules = [
             (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
