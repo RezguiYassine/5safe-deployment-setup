@@ -122,6 +122,7 @@
     wayland-scanner
     kdePackages.qtbase
     timeshift
+    helm
   ];
 
   environment.sessionVariables = {
