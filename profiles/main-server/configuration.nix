@@ -122,7 +122,7 @@
     wayland-scanner
     kdePackages.qtbase
     timeshift
-    helm
+    pkgs.kubernetes-helm
   ];
 
   environment.sessionVariables = {
