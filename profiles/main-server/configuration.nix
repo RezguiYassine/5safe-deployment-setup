@@ -24,6 +24,7 @@
    ../../system/hardware/systemd.nix
    ../../system/hardware/time.nix
    ../../system/security
+   ../../system/networking
    ../../system/services.nix
     (import ../../system/app/docker.nix {
       storageDriver = null;
