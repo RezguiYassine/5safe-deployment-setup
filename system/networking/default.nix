@@ -56,12 +56,12 @@
     };
   };
 
-  # # ACME/LetsEncrypt configuration
-  # security.acme = {
-  #   acceptTerms = true;
-  #   defaults.email = "admin@prod.edge.5-safe.de";
-  #   defaults.dnsProvider = "route53";
-  # };
+  # ACME/LetsEncrypt configuration
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "stadtlandshut.5safe@gmail.com";
+    # defaults.dnsProvider = "route53";
+  };
 
   networking.firewall.allowedTCPPorts = [ 80 443 6443 1883 19095 ];
 }
