@@ -37,23 +37,6 @@
         proxy_pass k3s_api;
       }
     '';
-
-    virtualHosts = {
-      "mqtt-monitoring-service.prod.edge.5-safe.de" = {
-        enableACME = false;
-        forceSSL = false;
-        locations."/" = {
-          proxyPass = "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local";
-          proxyWebsockets = true;
-          extraConfig = ''
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
-        };
-      };
-    };
   };
 
   # ACME/LetsEncrypt configuration
