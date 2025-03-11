@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  services.logrotate.checkConfig = false;
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
