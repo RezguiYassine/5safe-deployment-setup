@@ -38,6 +38,7 @@
         ];
       inherit userSettings;
      })
+     ../../secrets
     ../../system/app/virtualization.nix
     ../../system/style/stylix.nix
     ../../system/wm
