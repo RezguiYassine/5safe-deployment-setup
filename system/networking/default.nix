@@ -15,28 +15,28 @@
     '';
 
     # TCP/UDP stream configuration using DNS discovery
-    streamConfig = let
-      mqttService = "mosquitto-broker.default.svc.cluster.local";
-    in ''
-      upstream mqtt_backend {
-        server localhost:1883 resolve;
-      }
+    # streamConfig = let
+    #   mqttService = "mosquitto-broker.default.svc.cluster.local";
+    # in ''
+    #   upstream mqtt_backend {
+    #     server localhost:1883 resolve;
+    #   }
 
-      upstream k3s_api {
-        server localhost:6443 resolve;
-      }
+    #   upstream k3s_api {
+    #     server localhost:6443 resolve;
+    #   }
 
-      server {
-        listen 1883;
-        proxy_pass mqtt_backend;
-        proxy_timeout 1s;
-      }
+    #   server {
+    #     listen 1883;
+    #     proxy_pass mqtt_backend;
+    #     proxy_timeout 1s;
+    #   }
 
-      server {
-        listen 6443;
-        proxy_pass k3s_api;
-      }
-    '';
+    #   server {
+    #     listen 6443;
+    #     proxy_pass k3s_api;
+    #   }
+    # '';
   };
 
   # ACME/LetsEncrypt configuration
