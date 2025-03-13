@@ -124,6 +124,7 @@
     kdePackages.qtbase
     timeshift
     pkgs.kubernetes-helm
+    inputs.agenix.packages."${systemSettings.system}".default
   ];
 
   environment.sessionVariables = {
