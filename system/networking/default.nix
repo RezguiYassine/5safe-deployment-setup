@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 {
-  services.logrotate.checkConfig = false;
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
@@ -17,14 +16,13 @@
     # TCP/UDP stream configuration using DNS discovery
     streamConfig = let
       mqttService = "mosquitto-broker.default.svc.cluster.local";
-      k3sServers = "k3s-server.default.svc.cluster.local";
     in ''
       upstream mqtt_backend {
-        server ${mqttService}:1883 resolve;
+        server localhost:1883 resolve;
       }
 
       upstream k3s_api {
-        server ${k3sServers}:6443 resolve;
+        server localhost:6443 resolve;
       }
 
       server {
