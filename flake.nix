@@ -17,6 +17,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    inputs.agenix.url = "github:ryantm/agenix";
   };
 
   outputs =
@@ -24,6 +25,7 @@
       self,
       nixpkgs,
       home-manager,
+      agenix,
       disko,
       ...
     }:
@@ -81,6 +83,7 @@
           modules = [
             (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
             disko.nixosModules.disko
+            agenix.nixosModules.default
           ]; # load configuration.nix from selected PROFILE
           specialArgs = {
             inherit systemSettings;
