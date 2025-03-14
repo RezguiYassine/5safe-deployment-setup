@@ -35,8 +35,10 @@
       pkgs = nixpkgs.legacyPackages.${system};
       systemSettings = {
         system = "x86_64-linux";
-        hostName = "safe-main";
-        profile = "main-server";
+        hostName-server = "safe-server";
+        hostName-agent-1 = "safe-agent-1";
+        profile-server = "server";
+        profile-agent-1 = "agent-1"
         timeZone = "Europe/Berlin";
         locale = "en_US.UTF-8";
         bootMode = "uefi";
@@ -64,10 +66,22 @@
     in
     {
       homeConfigurations = {
-        safe = home-manager.lib.homeManagerConfiguration {
+        safe-server = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            (./. + "/profiles" + ("/" + systemSettings.profile) + "/home.nix") # load home.nix from selected PROFILE
+            (./. + "/profiles" + ("/" + systemSettings.profile-server) + "/home.nix") # load home.nix from selected PROFILE
+          ];
+          extraSpecialArgs = {
+            # pass config variables from above
+            inherit systemSettings;
+            inherit userSettings;
+            inherit inputs;
+          };
+        };
+        safe-agent-1 = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            (./. + "/profiles" + ("/" + systemSettings.profile-agent-1) + "/home.nix") # load home.nix from selected PROFILE
           ];
           extraSpecialArgs = {
             # pass config variables from above
@@ -77,11 +91,25 @@
           };
         };
       };
+
       nixosConfigurations = {
-        "${systemSettings.hostName}" = lib.nixosSystem {
+        "${systemSettings.hostName-server}" = lib.nixosSystem {
           inherit system;
           modules = [
-            (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
+            (./. + "/profiles" + ("/" + systemSettings.profile-server) + "/configuration.nix")
+            disko.nixosModules.disko
+            agenix.nixosModules.default
+          ]; # load configuration.nix from selected PROFILE
+          specialArgs = {
+            inherit systemSettings;
+            inherit userSettings;
+            inherit inputs;
+          };
+        };
+        "${systemSettings.hostName-agent-1}" = lib.nixosSystem {
+          inherit system;
+          modules = [
+            (./. + "/profiles" + ("/" + systemSettings.profile-agent-1) + "/configuration.nix")
             disko.nixosModules.disko
             agenix.nixosModules.default
           ]; # load configuration.nix from selected PROFILE
@@ -92,6 +120,5 @@
           };
         };
       };
-
     };
 }

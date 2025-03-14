@@ -15,7 +15,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ../main-server/hardware-configuration.nix
+    ./hardware-configuration.nix
     ../../system/disko-config
    ../../system/hardware/opengl.nix
    ../../system/hardware/bluetooth.nix
@@ -24,6 +24,7 @@
    ../../system/hardware/systemd.nix
    ../../system/hardware/time.nix
    ../../system/security
+   ../../system/networking
    ../../system/services.nix
     (import ../../system/app/docker.nix {
       storageDriver = null;
@@ -40,7 +41,8 @@
     ../../system/app/virtualization.nix
     ../../system/style/stylix.nix
     ../../system/wm
-    ../../k3s/agent.nix
+    ../../k3s/server.nix
+    ../../k3s/services
   ] ++ (if (systemSettings.hasNvidia) then [ ../../system/hardware/nvidia.nix ] else []);
 
   networking.hostName = systemSettings.hostName; # Define your hostname.
@@ -121,6 +123,10 @@
     wayland-scanner
     kdePackages.qtbase
     timeshift
+    pkgs.kubernetes-helm
+    inputs.agenix.packages."${systemSettings.system}".default
+    git-crypt
+    home-manager
   ];
 
   environment.sessionVariables = {
