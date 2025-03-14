@@ -28,7 +28,7 @@
     };
     /**
     Storage pool type: lvmthin
-    LVM normally allocates blocks when you create a volume. 
+    LVM normally allocates blocks when you create a volume.
     LVM thin pools instead allocates blocks when they are written.
     This behaviour is called thin-provisioning, because volumes can be much larger than physically available space.
     You can use the normal LVM command-line tools to manage and create LVM thin pools
@@ -40,10 +40,10 @@
         thinpool = {
           size = "1000G";
           lvm_type = "thin-pool";
-          extraArgs = [ "--chunksize" "64K" ]; 
+          extraArgs = [ "--chunksize" "64K" ];
         };
         root = {
-          size = "60G";
+          size = "600G";
           lvm_type = "thinlv";
           pool = "thinpool";
           content = {
@@ -53,8 +53,8 @@
             subvolumes = {
               "@" = { mountpoint = "/"; };
               "@home" = {
-                mountOptions = [ 
-                  "compress=zstd:3" 
+                mountOptions = [
+                  "compress=zstd:3"
                   "noatime"
                   "autodefrag"
                   "space_cache"
@@ -63,7 +63,7 @@
               };
               "@nix" = {
                 mountOptions = [
-                  "compress=zstd:3" 
+                  "compress=zstd:3"
                   "noatime"
                   "autodefrag"
                   "space_cache"
