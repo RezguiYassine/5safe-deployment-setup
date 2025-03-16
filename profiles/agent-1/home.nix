@@ -1,4 +1,4 @@
 {...}:
 {
-  imports = ["../main-server/home.nix"];
+  imports = ["../server/home.nix"];
 }

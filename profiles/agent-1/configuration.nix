@@ -15,7 +15,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ../main-server/hardware-configuration.nix
+    ../server/hardware-configuration.nix
     ../../system/disko-config
    ../../system/hardware/opengl.nix
    ../../system/hardware/bluetooth.nix
@@ -42,7 +42,7 @@
     ../../system/wm
     ../../k3s/agent.nix
   ] ++ (if (systemSettings.hasNvidia) then [ ../../system/hardware/nvidia.nix ] else []);
-  
+
   # Set your time zone.
   time.timeZone = systemSettings.timeZone;
 
