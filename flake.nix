@@ -20,25 +20,19 @@
     agenix.url = "github:ryantm/agenix";
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      home-manager,
-      agenix,
-      disko,
-      ...
-    }:
+  outputs = inputs@{ self, nixpkgs, home-manager, agenix, disko, ... }:
     let
-      system = "x86_64-linux";
       lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages.${system};
-      systemSettings = {
+      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      machines = [
+        { hostname = "safe-server"; profile = "server"; }
+        { hostname = "safe-agent-1"; profile = "agent-1"; }
+        { hostname = "safe-agent-2"; profile = "agent-2"; }
+        { hostname = "safe-agent-3"; profile = "agent-3"; }
+        # Add more agents as needed
+      ];
+      baseSystemSettings = {
         system = "x86_64-linux";
-        hostName-server = "safe-server";
-        hostName-agent-1 = "safe-agent-1";
-        profile-server = "server";
-        profile-agent-1 = "agent-1"
         timeZone = "Europe/Berlin";
         locale = "en_US.UTF-8";
         bootMode = "uefi";
@@ -65,60 +59,40 @@
 
     in
     {
-      homeConfigurations = {
-        safe-server = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            (./. + "/profiles" + ("/" + systemSettings.profile-server) + "/home.nix") # load home.nix from selected PROFILE
-          ];
-          extraSpecialArgs = {
-            # pass config variables from above
-            inherit systemSettings;
-            inherit userSettings;
-            inherit inputs;
+      homeConfigurations = lib.listToAttrs (
+        map (machine: {
+          name = "safe-${machine.profile}";
+          value = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${baseSystemSettings.system};
+            modules = [
+              (./. + "/profiles" + ("/" + machine.profile) + "/home.nix")
+            ];
+            extraSpecialArgs = {
+              systemSettings = baseSystemSettings // { hostName = machine.hostname; };
+              inherit userSettings;
+              inherit inputs;
+            };
           };
-        };
-        safe-agent-1 = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            (./. + "/profiles" + ("/" + systemSettings.profile-agent-1) + "/home.nix") # load home.nix from selected PROFILE
-          ];
-          extraSpecialArgs = {
-            # pass config variables from above
-            inherit systemSettings;
-            inherit userSettings;
-            inherit inputs;
-          };
-        };
-      };
+        }) machines
+      );
 
-      nixosConfigurations = {
-        "${systemSettings.hostName-server}" = lib.nixosSystem {
-          inherit system;
-          modules = [
-            (./. + "/profiles" + ("/" + systemSettings.profile-server) + "/configuration.nix")
-            disko.nixosModules.disko
-            agenix.nixosModules.default
-          ]; # load configuration.nix from selected PROFILE
-          specialArgs = {
-            inherit systemSettings;
-            inherit userSettings;
-            inherit inputs;
+      nixosConfigurations = lib.listToAttrs (
+        map (machine: {
+          name = machine.hostname;
+          value = lib.nixosSystem {
+            system = baseSystemSettings.system;
+            modules = [
+              (./. + "/profiles" + ("/" + machine.profile) + "/configuration.nix")
+              disko.nixosModules.disko
+              agenix.nixosModules.default
+            ];
+            specialArgs = {
+              systemSettings = baseSystemSettings // { hostName = machine.hostname; };
+              inherit userSettings;
+              inherit inputs;
+            };
           };
-        };
-        "${systemSettings.hostName-agent-1}" = lib.nixosSystem {
-          inherit system;
-          modules = [
-            (./. + "/profiles" + ("/" + systemSettings.profile-agent-1) + "/configuration.nix")
-            disko.nixosModules.disko
-            agenix.nixosModules.default
-          ]; # load configuration.nix from selected PROFILE
-          specialArgs = {
-            inherit systemSettings;
-            inherit userSettings;
-            inherit inputs;
-          };
-        };
-      };
+        }) machines
+      );
     };
 }
