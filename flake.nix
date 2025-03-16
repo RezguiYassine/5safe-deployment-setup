@@ -39,7 +39,7 @@
         bootMountPath = "/boot";
         grubDevice = ""; # device identifier for grub; only used for legacy (bios) boot mode
         gpuType = "intel"; # amd, intel or nvidia; only makes some slight mods for amd at the moment
-        hasNvidia = if(systemSettings.gpuType == "nvidia") then true else false;
+        hasNvidia = if(baseSystemSettings.gpuType == "nvidia") then true else false;
       };
 
       userSettings = rec {
