@@ -68,7 +68,7 @@
               (./. + "/profiles" + ("/" + machine.profile) + "/home.nix")
             ];
             extraSpecialArgs = {
-              systemSettings = baseSystemSettings // { hostName = machine.hostname; };
+              systemSettings = baseSystemSettings // { hostName = machine.hostname; profile = machine.profile};
               inherit userSettings;
               inherit inputs;
             };
@@ -87,7 +87,7 @@
               agenix.nixosModules.default
             ];
             specialArgs = {
-              systemSettings = baseSystemSettings // { hostName = machine.hostname; };
+              systemSettings = baseSystemSettings // { hostName = machine.hostname; profile = machine.profile };
               inherit userSettings;
               inherit inputs;
             };
