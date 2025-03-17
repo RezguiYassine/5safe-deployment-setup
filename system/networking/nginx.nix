@@ -29,7 +29,7 @@
   };
 
   systemd.services.nginx.serviceConfig.ReadWritePaths = [ "/var/log/nginx" "/var/cache/nginx" ];
-
+  users.users.nginx.extraGroups = [ "acme" ];
   security.acme = lib.mkIf (systemSettings.profile == "server") {
     acceptTerms = true;
     defaults.email = "stadtlandshut.5safe@gmail.com";
