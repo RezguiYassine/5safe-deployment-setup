@@ -18,56 +18,61 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, agenix, disko, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, agenix, disko, flake-utils, ... }:
     let
       lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages."x86_64-linux";
-      constants = import ./constants.nix { inherit pkgs; };
     in
-    {
-      homeConfigurations = lib.listToAttrs (
-        map (machine: {
-          name = "safe-${machine.profile}";
-          value = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            modules = [
-              (./. + "/profiles" + ("/" + machine.profile) + "/home.nix")
-            ];
-            extraSpecialArgs = {
-              systemSettings = constants.baseSystemSettings // {
-                hostName = machine.hostname;
-                profile = machine.profile;
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        constants = import ./constants.nix { inherit pkgs; };
+      in
+      {
+        homeConfigurations = lib.listToAttrs (
+          map (machine: {
+            name = "safe-${machine.profile}";
+            value = home-manager.lib.homeManagerConfiguration {
+              inherit pkgs;
+              modules = [
+                (./. + "/profiles/${machine.profile}/home.nix")
+              ];
+              extraSpecialArgs = {
+                systemSettings = constants.baseSystemSettings // {
+                  hostName = machine.hostname;
+                  profile = machine.profile;
+                };
+                inherit (constants) userSettings;
+                inherit inputs;
               };
-              inherit (constants) userSettings;
-              inherit inputs;
             };
-          };
-        }) constants.machines
-      );
+          }) constants.machines
+        );
 
-      nixosConfigurations = lib.listToAttrs (
-        map (machine: {
-          name = machine.hostname;
-          value = lib.nixosSystem {
-            system = constants.baseSystemSettings.system;
-            modules = [
-              (./. + "/profiles" + ("/" + machine.profile) + "/configuration.nix")
-              disko.nixosModules.disko
-              agenix.nixosModules.default
-            ];
-            specialArgs = {
-              systemSettings = constants.baseSystemSettings // {
-                hostName = machine.hostname;
-                profile = machine.profile;
+        nixosConfigurations = lib.listToAttrs (
+          map (machine: {
+            name = machine.hostname;
+            value = lib.nixosSystem {
+              system = constants.baseSystemSettings.system;
+              modules = [
+                (./. + "/profiles/${machine.profile}/configuration.nix")
+                disko.nixosModules.disko
+                agenix.nixosModules.default
+              ];
+              specialArgs = {
+                systemSettings = constants.baseSystemSettings // {
+                  hostName = machine.hostname;
+                  profile = machine.profile;
+                };
+                inherit (constants) userSettings;
+                inherit inputs;
+                inherit constants;
               };
-              inherit (constants) userSettings;
-              inherit inputs;
-              inherit constants;
             };
-          };
-        }) constants.machines
-      );
-    };
+          }) constants.machines
+        );
+      }
+    );
 }
