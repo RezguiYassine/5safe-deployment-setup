@@ -1,6 +1,7 @@
-{ constants, systemSettings, ... }:
-if systemSettings.profile == "server" then {
-  services.nginx = {
+{ config, pkgs, systemSettings, lib, ... }:
+
+{
+  services.nginx = lib.mkIf (systemSettings.profile == "server") {
     enable = true;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
@@ -28,11 +29,9 @@ if systemSettings.profile == "server" then {
       }
     '';
   };
-
-  # ACME/LetsEncrypt configuration
-  security.acme = {
+  security.acme = lib.mkIf (systemSettings.profile == "server") {
     acceptTerms = true;
     defaults.email = "stadtlandshut.5safe@gmail.com";
     # defaults.dnsProvider = "route53";
   };
-} else {};
+}
