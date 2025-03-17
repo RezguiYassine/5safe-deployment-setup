@@ -3,6 +3,7 @@
 {
   services.nginx = lib.mkIf (systemSettings.profile == "server") {
     enable = true;
+    stream.enable = true;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedProxySettings = true;
