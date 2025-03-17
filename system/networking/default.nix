@@ -1,5 +1,6 @@
 { config, pkgs, systemSettings, ... }:
 {
+  imports = [ ./nginx.nix ];
   networking.hostName = systemSettings.hostName; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
