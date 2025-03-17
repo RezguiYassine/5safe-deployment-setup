@@ -1,6 +1,5 @@
-{ systemSettings, lib, constants, ... }:
-
 {
+  # Existing Nginx configuration
   services.nginx = lib.mkIf (systemSettings.profile == "server") {
     enable = true;
     recommendedTlsSettings = true;
@@ -28,8 +27,20 @@
     '';
   };
 
-  systemd.services.nginx.serviceConfig.ReadWritePaths = [ "/var/log/nginx" "/var/cache/nginx" ];
+  # Update ReadWritePaths to include the log directory from the error
+  systemd.services.nginx.serviceConfig.ReadWritePaths = [
+    "/var/log/nginx"
+    "/var/cache/nginx"
+    "/var/spool/nginx/logs"
+  ];
+
+  # Ensure the directory exists with correct ownership and permissions
+  systemd.tmpfiles.rules = [
+    "d /var/spool/nginx/logs 0755 nginx nginx -"
+  ];
+
   users.users.nginx.extraGroups = [ "acme" ];
+
   security.acme = lib.mkIf (systemSettings.profile == "server") {
     acceptTerms = true;
     defaults.email = "stadtlandshut.5safe@gmail.com";
