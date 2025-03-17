@@ -32,7 +32,7 @@
           constants = import ./constants.nix { inherit pkgs; };
           homeConfigurations = lib.listToAttrs (
             map (machine: {
-              name = "safe-${machine.profile}-${system}";
+              name = "${machine.hostName}-${system}";
               value = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 modules = [
