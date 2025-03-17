@@ -1,6 +1,7 @@
-{ constants, systemSettings, ... }:
-if systemSettings.profile == "server" then {
-  services.nginx = {
+{ systemSettings, lib, ... }:
+
+{
+  services.nginx = lib.mkIf (systemSettings.profile == "server") {
     enable = true;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
@@ -13,26 +14,26 @@ if systemSettings.profile == "server" then {
       add_header Referrer-Policy "strict-origin";
     '';
 
-    streamConfig = let
-      mqttService = "mosquitto-broker.default.svc.cluster.local";
-    in ''
-      stream {
-        upstream k3s_servers {
-          server ${constants.serverAddr}:${toString constants.clusterPort};
-        }
+    streamConfig =
+      let
+        mqttService = "mosquitto-broker.default.svc.cluster.local";
+      in
+      ''
+        stream {
+          upstream k3s_servers {
+            server ${constants.serverAddr}:${toString constants.clusterPort};
+          }
 
-        server {
-          listen ${toString constants.clusterPort};
-          proxy_pass k3s_servers;
+          server {
+            listen ${toString constants.clusterPort};
+            proxy_pass k3s_servers;
+          }
         }
-      }
-    '';
+      '';
   };
-
-  # ACME/LetsEncrypt configuration
-  security.acme = {
+  security.acme = lib.mkIf (systemSettings.profile == "server") {
     acceptTerms = true;
     defaults.email = "stadtlandshut.5safe@gmail.com";
     # defaults.dnsProvider = "route53";
   };
-} else {};
+}
