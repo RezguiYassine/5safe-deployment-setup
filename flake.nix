@@ -81,9 +81,12 @@
           nixosConfigurations = nixosConfigurations;
         }
       );
+
+      debugAllSystems = builtins.trace "allSystemsOutputs systems: ${builtins.toJSON (builtins.attrNames allSystemsOutputs)}" allSystemsOutputs;
+
+      debugNixosConfigurations = builtins.trace "nixosConfigurations: ${builtins.toJSON (lib.mapAttrs (name: value: builtins.attrNames value.nixosConfigurations) allSystemsOutputs)}" allSystemsOutputs;
     in
     {
-      # Merge home configurations across all systems
       homeConfigurations = lib.foldl' lib.attrsets.unionOfDisjoint {}
         (map (s: allSystemsOutputs.${s}.homeConfigurations) flake-utils.lib.defaultSystems);
 
