@@ -14,28 +14,23 @@
     '';
 
     streamConfig = ''
-      stream {
-        upstream k3s_servers {
-          server ${constants.serverAddr}:${toString constants.clusterPort};
-        }
-
-        server {
-          listen ${toString constants.clusterPort};
-          proxy_pass k3s_servers;
-        }
+      upstream mosquitto {
+        server localhost:31884;
+      }
+      upstream kafka {
+        server localhost:31095;
+      }
+      server {
+        listen 1883;
+        proxy_pass mosquitto;
+      }
+      server {
+      listen 19095;
+      proxy_pass kafka;
       }
     '';
+
   };
-
-  systemd.services.nginx.serviceConfig.ReadWritePaths = [
-    "/var/log/nginx"
-    "/var/cache/nginx"
-    "/var/spool/nginx/logs"
-  ];
-
-  systemd.tmpfiles.rules = [
-    "d /var/spool/nginx/logs 0755 nginx nginx -"
-  ];
 
   users.users.nginx.extraGroups = [ "acme" ];
 
