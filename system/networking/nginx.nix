@@ -15,7 +15,7 @@
 
     streamConfig = ''
       upstream mosquitto {
-        server localhost:31884;
+        server localhost:31883;
       }
       upstream kafka {
         server localhost:31095;
