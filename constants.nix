@@ -2,7 +2,6 @@
 
 {
   baseSystemSettings = rec {
-    system = "x86_64-linux";
     timeZone = "Europe/Berlin";
     locale = "en_US.UTF-8";
     bootMode = "uefi";
