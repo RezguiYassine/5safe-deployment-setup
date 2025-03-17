@@ -50,36 +50,35 @@
             }) constants.machines
           );
 
-          nixosConfigurations = lib.listToAttrs (
-            map (machine: {
-              name = "${machine.hostname}-${system}";
-              value = lib.nixosSystem {
-                system = system;
-                modules = [
-                  (./. + "/profiles" + ("/" + machine.profile) + "/configuration.nix")
-                  disko.nixosModules.disko
-                  agenix.nixosModules.default
-                ];
-                specialArgs = {
-                  systemSettings = constants.baseSystemSettings // {
-                    hostName = machine.hostname;
-                    profile = machine.profile;
-                    system = system;
+          nixosConfigurations = if builtins.elem system linuxSystems then
+            lib.listToAttrs (
+              map (machine: {
+                name = "${machine.hostname}-${system}";
+                value = lib.nixosSystem {
+                  system = system;
+                  modules = [
+                    (./. + "/profiles" + ("/" + machine.profile) + "/configuration.nix")
+                    disko.nixosModules.disko
+                    agenix.nixosModules.default
+                  ];
+                  specialArgs = {
+                    systemSettings = constants.baseSystemSettings // {
+                      hostName = machine.hostname;
+                      profile = machine.profile;
+                      system = system;
+                    };
+                    inherit (constants) userSettings;
+                    inherit inputs;
+                    inherit constants;
                   };
-                  inherit (constants) userSettings;
-                  inherit inputs;
-                  inherit constants;
                 };
-              };
-            }) constants.machines
-          );
+              }) constants.machines
+            )
+          else {};
         in
         {
           homeConfigurations = homeConfigurations;
-          # Only create NixOS configs for Linux systems
-          nixosConfigurations = if builtins.elem system linuxSystems
-            then nixosConfigurations
-            else {};
+          nixosConfigurations = nixosConfigurations;
         }
       );
     in
