@@ -24,55 +24,66 @@
   outputs = inputs@{ self, nixpkgs, home-manager, agenix, disko, flake-utils, ... }:
     let
       lib = nixpkgs.lib;
-    in
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        constants = import ./constants.nix { inherit pkgs; };
-      in
-      {
-        homeConfigurations = lib.listToAttrs (
-          map (machine: {
-            name = "safe-${machine.profile}";
-            value = home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              modules = [
-                (./. + "/profiles/${machine.profile}/home.nix")
-              ];
-              extraSpecialArgs = {
-                systemSettings = constants.baseSystemSettings // {
-                  hostName = machine.hostname;
-                  profile = machine.profile;
+      allSystemsOutputs = flake-utils.lib.eachDefaultSystem (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          constants = import ./constants.nix { inherit pkgs; };
+          homeConfigurations = lib.listToAttrs (
+            map (machine: {
+              name = "safe-${machine.profile}-${system}";
+              value = home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                modules = [
+                  (./. + "/profiles" + ("/" + machine.profile) + "/home.nix")
+                ];
+                extraSpecialArgs = {
+                  systemSettings = constants.baseSystemSettings // {
+                    hostName = machine.hostname;
+                    profile = machine.profile;
+                    system = system;
+                  };
+                  inherit (constants) userSettings;
+                  inherit inputs;
                 };
-                inherit (constants) userSettings;
-                inherit inputs;
               };
-            };
-          }) constants.machines
-        );
+            }) constants.machines
+          );
 
-        nixosConfigurations = lib.listToAttrs (
-          map (machine: {
-            name = machine.hostname;
-            value = lib.nixosSystem {
-              system = constants.baseSystemSettings.system;
-              modules = [
-                (./. + "/profiles/${machine.profile}/configuration.nix")
-                disko.nixosModules.disko
-                agenix.nixosModules.default
-              ];
-              specialArgs = {
-                systemSettings = constants.baseSystemSettings // {
-                  hostName = machine.hostname;
-                  profile = machine.profile;
+          nixosConfigurations = lib.listToAttrs (
+            map (machine: {
+              name = "${machine.hostname}-${system}";
+              value = lib.nixosSystem {
+                system = system;
+                modules = [
+                  (./. + "/profiles" + ("/" + machine.profile) + "/configuration.nix")
+                  disko.nixosModules.disko
+                  agenix.nixosModules.default
+                ];
+                specialArgs = {
+                  systemSettings = constants.baseSystemSettings // {
+                    hostName = machine.hostname;
+                    profile = machine.profile;
+                    system = system;
+                  };
+                  inherit (constants) userSettings;
+                  inherit inputs;
+                  inherit constants;
                 };
-                inherit (constants) userSettings;
-                inherit inputs;
-                inherit constants;
               };
-            };
-          }) constants.machines
-        );
-      }
-    );
+            }) constants.machines
+          );
+        in
+        {
+          homeConfigurations = homeConfigurations;
+          nixosConfigurations = nixosConfigurations;
+        }
+      );
+    in
+    {
+      # Merge all system-specific homeConfigurations into a single set
+      homeConfigurations = lib.foldl' lib.attrsets.unionOfDisjoint {}
+        (map (s: allSystemsOutputs.${s}.homeConfigurations) flake-utils.lib.defaultSystems);
+      nixosConfigurations = lib.foldl' lib.attrsets.unionOfDisjoint {}
+        (map (s: allSystemsOutputs.${s}.nixosConfigurations) flake-utils.lib.defaultSystems);
+    };
 }
