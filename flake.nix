@@ -64,7 +64,7 @@
               };
               inherit (constants) userSettings;
               inherit inputs;
-              inherit constants
+              inherit constants;
             };
           };
         }) constants.machines
