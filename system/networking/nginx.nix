@@ -1,4 +1,4 @@
-{ config, pkgs, systemSettings, lib, ... }:
+{ config, pkgs, systemSettings, lib, constants ... }:
 
 {
   services.nginx = lib.mkIf (systemSettings.profile == "server") {
