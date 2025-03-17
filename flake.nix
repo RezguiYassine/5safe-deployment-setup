@@ -24,6 +24,7 @@
   outputs = inputs@{ self, nixpkgs, home-manager, agenix, disko, flake-utils, ... }:
     let
       lib = nixpkgs.lib;
+      linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
       allSystemsOutputs = flake-utils.lib.eachDefaultSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
@@ -75,15 +76,19 @@
         in
         {
           homeConfigurations = homeConfigurations;
-          nixosConfigurations = nixosConfigurations;
+          # Only create NixOS configs for Linux systems
+          nixosConfigurations = if builtins.elem system linuxSystems
+            then nixosConfigurations
+            else {};
         }
       );
     in
     {
-      # Merge all system-specific homeConfigurations into a single set
+      # Merge home configurations across all systems
       homeConfigurations = lib.foldl' lib.attrsets.unionOfDisjoint {}
         (map (s: allSystemsOutputs.${s}.homeConfigurations) flake-utils.lib.defaultSystems);
+
       nixosConfigurations = lib.foldl' lib.attrsets.unionOfDisjoint {}
-        (map (s: allSystemsOutputs.${s}.nixosConfigurations) flake-utils.lib.defaultSystems);
+        (map (s: allSystemsOutputs.${s}.nixosConfigurations) linuxSystems);
     };
 }
