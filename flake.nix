@@ -50,7 +50,6 @@
               };
             }) constants.machines
           );
-
           nixosConfigurations = lib.listToAttrs (
             map (machine: {
               name = "${machine.hostname}-${system}";
@@ -82,9 +81,8 @@
     in
     {
       homeConfigurations = lib.foldl' lib.attrsets.unionOfDisjoint {}
-        (map (s: allSystemsOutputs.${s}.homeConfigurations) (builtins.attrNames allSystemsOutputs));
-
+        (builtins.attrValues allSystemsOutputs.homeConfigurations);
       nixosConfigurations = lib.foldl' lib.attrsets.unionOfDisjoint {}
-        (map (s: allSystemsOutputs.${s}.nixosConfigurations) (builtins.attrNames allSystemsOutputs));
+        (builtins.attrValues allSystemsOutputs.nixosConfigurations);
     };
 }
