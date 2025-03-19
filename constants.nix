@@ -32,7 +32,7 @@
     { hostname = "safe-agent-1"; profile = "agent-1"; }
     # Add more agents as needed
   ];
-  kafkaSettings = {
+  kafkaSettings = let inherit serverAddr; in {
     clusterDomain = "cluster.local";
     image = {
       tag = "3.5.1-debian-11-r14";
