@@ -1,6 +1,6 @@
 {...}:
 {
-  import = [
+  imports = [
    ./system/hardware/opengl.nix
    ./system/hardware/bluetooth.nix
    ./system/hardware/power.nix
