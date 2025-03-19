@@ -25,13 +25,68 @@
     editor = "nvim";
   };
 
-  serverAddr = "https://10.215.255.65";
+  serverAddr = "10.215.255.65";
   clusterPort = 6443;
   machines = [
     { hostname = "safe-server"; profile = "server"; }
     { hostname = "safe-agent-1"; profile = "agent-1"; }
-    { hostname = "safe-agent-2"; profile = "agent-2"; }
-    { hostname = "safe-agent-3"; profile = "agent-3"; }
     # Add more agents as needed
   ];
+  kafkaSettings = {
+    clusterDomain = "cluster.local";
+    image = {
+      tag = "3.5.1-debian-11-r14";
+    };
+    listeners = {
+      client = {
+        containerPort = 9092;
+      };
+      controller = {
+        containerPort = 9093;
+      };
+      interbroker = {
+        containerPort = 9094;
+      };
+      external = {
+        containerPort = 9095;
+      };
+    };
+    controller = {
+      replicaCount = 3;
+      persistence = {
+        storageClass = "standard";
+        size = "8Gi";
+      };
+    };
+    broker = {
+      replicaCount = 0;
+      persistence = {
+        storageClass = "standard";
+        size = "8Gi";
+      };
+    };
+    service = {
+      ports = {
+        client = 19092;
+        controller = 19093;
+        interbroker = 19094;
+        external = 19095;
+      };
+      nodePorts = {
+        external = 31095;
+      };
+    };
+    externalAccess = {
+      controller = {
+        service = {
+          domain = serverAddr;
+        };
+      };
+      broker = {
+        service = {
+          domain = serverAddr;
+        };
+      };
+    };
+  };
 }
