@@ -53,14 +53,14 @@ let constants = rec {
     controller = {
       replicaCount = 3;
       persistence = {
-        storageClass = "standard";
+        storageClass = "local-path";
         size = "8Gi";
       };
     };
     broker = {
       replicaCount = 0;
       persistence = {
-        storageClass = "standard";
+        storageClass = "local-path";
         size = "8Gi";
       };
     };
