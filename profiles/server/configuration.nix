@@ -17,15 +17,10 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../system/disko-config
-   ../../system/hardware/opengl.nix
-   ../../system/hardware/bluetooth.nix
-   ../../system/hardware/power.nix
-   ../../system/hardware/printing.nix
-   ../../system/hardware/systemd.nix
-   ../../system/hardware/time.nix
-   ../../system/security
-   ../../system/networking
-   ../../system/services.nix
+    ../../system/hardware
+    ../../system/security
+    ../../system/networking
+    ../../system/services.nix
     (import ../../system/app/docker.nix {
       storageDriver = null;
       inherit pkgs userSettings systemSettings lib;
@@ -45,9 +40,6 @@
     ../../k3s/services
   ] ++ (if (systemSettings.hasNvidia) then [ ../../system/hardware/nvidia.nix ] else []);
 
-  # Set your time zone.
-  time.timeZone = systemSettings.timeZone;
-
   # Select internationalisation properties.
   i18n.defaultLocale = systemSettings.locale;
 
@@ -63,13 +55,6 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
   environment.shells = with pkgs; [ zsh ];
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
@@ -134,7 +119,6 @@
       pkgs.xdg-desktop-portal-gtk
     ];
   };
-  services.blueman.enable = true;
   # I'm sorry Stallman-taichou
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [
