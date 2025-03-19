@@ -1,6 +1,5 @@
 { pkgs }:
-
-{
+let constants = rec {
   baseSystemSettings = rec {
     timeZone = "Europe/Berlin";
     locale = "en_US.UTF-8";
@@ -32,7 +31,7 @@
     { hostname = "safe-agent-1"; profile = "agent-1"; }
     # Add more agents as needed
   ];
-  kafkaSettings = let inherit serverAddr; in {
+  kafkaSettings = rec {
     clusterDomain = "cluster.local";
     image = {
       tag = "3.5.1-debian-11-r14";
@@ -89,4 +88,5 @@
       };
     };
   };
-}
+};
+in constants
