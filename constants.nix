@@ -28,7 +28,7 @@ let constants = rec {
   clusterPort = 6443;
   machines = [
     { hostname = "safe-server"; profile = "server"; }
-    { hostname = "safe-agent-1"; profile = "agent-1"; }
+    { hostname = "safe-agent_1"; profile = "agent-1"; }
     # Add more agents as needed
   ];
   kafkaSettings = rec {
