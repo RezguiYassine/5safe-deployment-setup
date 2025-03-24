@@ -24,7 +24,7 @@
         server localhost:9095;
       }
       upstream kafka_ui {
-        server localhost:18080
+        server localhost:8080
       }
       server {
         listen 1883;
