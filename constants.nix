@@ -24,7 +24,7 @@ let constants = rec {
     editor = "nvim";
   };
 
-  serverAddr = "10.215.255.65";
+  serverAddr = "100.96.1.98";
   clusterPort = 6443;
   machines = [
     { hostname = "safe-server"; profile = "server"; }
