@@ -11,5 +11,5 @@
   # Enable networking
   networking.networkmanager.enable = true;
   services.logrotate.checkConfig = false;
-  networking.firewall.allowedTCPPorts = [ 80 443 6443 1883 19095 9095 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 6443 1883 19095 9095 8080 ];
 }

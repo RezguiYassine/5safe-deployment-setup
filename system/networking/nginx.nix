@@ -23,6 +23,9 @@
       upstream kafka_internal {
         server localhost:9095;
       }
+      upstream kafka_ui {
+        server localhost:18080
+      }
       server {
         listen 1883;
         proxy_pass mosquitto;
@@ -34,6 +37,10 @@
       server {
         listen 9095;
         proxy_pass kafka_internal;
+      }
+      server {
+        listen 8080;
+        proxy_pass kafka_ui;
       }
     '';
 
