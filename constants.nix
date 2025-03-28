@@ -89,6 +89,15 @@ let constants = rec {
         };
       };
     };
+    kraft = {
+      enabled = true;
+      clusterId = "4hY3QZv8TJiW-6qN7m2tBg";
+      controllerQuorumVoters = [
+        "100@kafka-controller-0.kafka-headless.default.svc.cluster.local:9093"
+        "101@kafka-controller-1.kafka-headless.default.svc.cluster.local:9093"
+        "102@kafka-controller-2.kafka-headless.default.svc.cluster.local:9093"
+      ];
+    };
   };
 };
 in constants
