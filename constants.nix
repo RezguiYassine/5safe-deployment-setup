@@ -85,7 +85,7 @@ let constants = rec {
       broker = {
         service = {
           domain = serverAddr;
-          nodePort = 31094
+          nodePort = 31094;
         };
       };
     };
