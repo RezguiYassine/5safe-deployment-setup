@@ -79,13 +79,13 @@ let constants = rec {
       controller = {
         service = {
           domain = serverAddr;
-          nodePort = 31093;
+          nodePorts = [ 31093 31094 31095 ];
         };
       };
       broker = {
         service = {
           domain = serverAddr;
-          nodePort = 31094;
+          nodePorts = [ 31094 31095 31096 ];
         };
       };
     };
