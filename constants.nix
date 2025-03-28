@@ -58,7 +58,7 @@ let constants = rec {
       };
     };
     broker = {
-      replicaCount = 0;
+      replicaCount = 3;
       persistence = {
         storageClass = "local-path";
         size = "8Gi";
